@@ -1,3 +1,7 @@
 *~
 *.swp
 *.exe
+*.pyc
+dist
+build
+main.spec
