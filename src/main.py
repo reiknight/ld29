@@ -4,6 +4,7 @@ import pygame, sys
 
 from pygame.locals import *
 from player import Player
+from level import Level
 
 FPS = 60
 
@@ -14,12 +15,15 @@ surface = pygame.display.set_mode((800,600))
 pygame.display.set_caption('Speluncraft without craft')
 
 player = Player()
+level = Level()
 
 while True:
     #Update
     player.update()
+    level.update()
     
     #Drawing
+    level.draw(surface)
     
     #Input
     for event in pygame.event.get():
