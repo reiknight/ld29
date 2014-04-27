@@ -49,7 +49,7 @@ while True:
 
     #Update
     player.update()
-    level.update()
+    level.update(camera)
     camera.update(player)
 
     #Drawing
@@ -58,8 +58,11 @@ while True:
     player.draw(surface, camera)
 
     #Debug
-    label = font.render("Debug", 1, (255, 255, 255))
+    label = font.render("FPS: %f" % (timer.get_fps()), 1, (255, 255, 255))
     surface.blit(label, (0, 0))
+    playerCenterx, playerCentery = player.getCenter()
+    label = font.render("Player position: %d, %d" % (playerCenterx, playerCentery), 1, (255, 255, 255))
+    surface.blit(label, (0, 30))
     
     pygame.display.update()
     timer.tick(FPS)
