@@ -18,19 +18,22 @@ class Player(Entity):
         self.mov = 0
         self.pick_type = 1
         self.pick_amount = 1
+        self.jumping = 0
     
     def update(self):
-        falling = False
-        if not self.level.cells[self.posY+1][self.posX + (1 if self.mov < 0 else 0)].isSolid():
+        self.falling = False
+        if self.jumping > 0:
+            if not self.level.cells[self.posY-1][(self.x + self.mov)//CELL_SIZE].isSolid():
+                self.y -= 5
+            self.jumping -= 5
+        elif not self.level.cells[self.posY+1][self.posX + (1 if self.mov < 0 else 0)].isSolid() and self.jumping <= 0:
             self.y += 5
-            falling = True
-        else:
-            falling = False
+            self.falling = True
         if self.mov < 0:
-            if not self.level.cells[self.posY][(self.x + self.mov)//CELL_SIZE].isSolid() and (falling and not self.level.cells[self.posY+1][(self.x + self.mov)//CELL_SIZE].isSolid() or not falling):
+            if not self.level.cells[self.posY][(self.x + self.mov)//CELL_SIZE].isSolid() and ((self.falling or self.jumping > 0) and not self.level.cells[self.posY+1][(self.x + self.mov)//CELL_SIZE].isSolid() or not (self.falling or self.jumping > 0)):
                 self.x += self.mov
         elif self.mov > 0:
-            if not self.level.cells[self.posY][(self.x + self.mov)//CELL_SIZE+1].isSolid() and (falling and not self.level.cells[self.posY+1][(self.x + self.mov)//CELL_SIZE+1].isSolid() or not falling) :
+            if not self.level.cells[self.posY][(self.x + self.mov)//CELL_SIZE+1].isSolid() and ((self.falling or self.jumping > 0) and not self.level.cells[self.posY+1][(self.x + self.mov)//CELL_SIZE+1].isSolid() or not (self.falling or self.jumping > 0)) :
                 self.x += self.mov
         
         self.posX = self.x//CELL_SIZE
@@ -51,3 +54,9 @@ class Player(Entity):
             if material != OBSIDIAN:
                 self.level.cells[self.posY + direction[0]*n][self.posX + direction[1]*n].setMaterial(None)
             amount -= 1 + (material if material else 0)
+    
+    def jump(self):
+        if self.jumping <= 0 and not self.falling:
+            self.jumping = CELL_SIZE + (CELL_SIZE//2)
+        else:
+            self.jumping = 0
