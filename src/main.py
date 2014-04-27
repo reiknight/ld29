@@ -26,9 +26,6 @@ mousey = 0
 camerax = 0
 cameray = 0
 
-playerCenterx = HALF_WINDOW_WIDTH
-playerCentery = HALF_WINDOW_HEIGHT
-
 while True:
     #Input
     for event in pygame.event.get():
@@ -48,12 +45,11 @@ while True:
         elif event.type == MOUSEMOTION:
             mousex, mousey = event.pos
 
-    if (mousex > HALF_WINDOW_WIDTH):
-        playerCenterx += 1
-    elif (mousex < HALF_WINDOW_HEIGHT):
-        playerCenterx -= 1
-
+    #Update
+    player.update()
+    level.update()
     #Camera test
+    playerCenterx, playerCentery = player.getCenter()
     if (camerax + HALF_WINDOW_WIDTH) - playerCenterx > CAMERA_SLACK:
         camerax = playerCenterx + CAMERA_SLACK - HALF_WINDOW_WIDTH
     elif playerCenterx - (camerax + HALF_WINDOW_WIDTH) > CAMERA_SLACK:
@@ -63,14 +59,10 @@ while True:
     elif playerCentery - (cameray + HALF_WINDOW_HEIGHT) > CAMERA_SLACK:
         cameray = playerCentery - CAMERA_SLACK - HALF_WINDOW_HEIGHT
 
-    #Update
-    player.update()
-    level.update()
-    
     #Drawing
     surface.fill((0, 0, 0))
     level.draw(surface, camerax, cameray)
-    player.draw(surface)
+    player.draw(surface, camerax, cameray)
 
     #Debug
     label = font.render("playerx = %d playery = %d" % (playerCenterx, playerCentery), 1, (255, 255, 255))
