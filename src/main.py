@@ -36,14 +36,14 @@ while True:
             pygame.quit()
             sys.exit()
         elif event.type == KEYDOWN:
-            if event.key == LEFT:
+            if event.key == K_LEFT:
                 player.mov = -1
-            elif event.key == RIGHT:
+            elif event.key == K_RIGHT:
                 player.mov = 1
         elif event.type == KEYUP:
-            if event.key == LEFT and player.mov == -1:
+            if event.key == K_LEFT and player.mov == -1:
                 player.mov = 0
-            elif event.key == RIGHT and player.mov == 1:
+            elif event.key == K_RIGHT and player.mov == 1:
                 player.mov = 0
         elif event.type == MOUSEMOTION:
             mousex, mousey = event.pos
@@ -70,8 +70,7 @@ while True:
     #Drawing
     surface.fill((0, 0, 0))
     level.draw(surface, camerax, cameray)
-    #TODO: draw player
-    pygame.draw.rect(surface, (255, 0, 0), (playerCenterx - camerax, playerCentery - cameray, 25, 25)) 
+    player.draw(surface)
 
     #Debug
     label = font.render("playerx = %d playery = %d" % (playerCenterx, playerCentery), 1, (255, 255, 255))
