@@ -79,11 +79,13 @@ class Level:
         return cell
 
     def materialAt(self, row, col):
-        #if (row < SURFACE_LEVEL + 5):
-        #    return CELL_MATERIALS[random.randint(0, 1)]
-        #elif(row < SURFACE_LEVEL + 15):
-        #    return CELL_MATERIALS[random.randint(0, 2)]
-        #else:
-        #    return CELL_MATERIALS[random.randint(0, len(CELL_MATERIALS) - 1)]
-        return CELL_MATERIALS[random.randint(0, len(CELL_MATERIALS) - 1)]
+        tier_level = row // TIER_LEVEL_MULTIPLY
+        tier_level = MAX_TIER_LEVEL if tier_level > MAX_TIER_LEVEL else tier_level
 
+        prob = random.randrange(1, 100)
+        acc_prob = 0
+
+        for material in CELL_MATERIALS:
+            acc_prob += CELL_MATERIAL_SPAWN_PROB[material][tier_level]
+            if (prob <= acc_prob):
+                return material
