@@ -18,5 +18,8 @@ class Camera:
         elif playerCentery - (self.y + HALF_WINDOW_HEIGHT) > CAMERA_SLACK:
             self.y = playerCentery - CAMERA_SLACK - HALF_WINDOW_HEIGHT
 
+        if (self.x <= 0):
+            self.x = 0
+
     def getPosition(self):
         return (self.x, self.y)
