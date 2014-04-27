@@ -10,6 +10,8 @@ HALF_WINDOW_HEIGHT = int(WINDOW_HEIGHT / 2)
 
 CAMERA_SLACK = 90 # How far from the center the player moves before moving the camera
 
+PLAYER_SPEED = 5
+
 SURFACE_LEVEL= 5
 
 SKY = 0

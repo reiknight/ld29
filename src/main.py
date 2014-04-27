@@ -33,14 +33,17 @@ while True:
             pygame.quit()
             sys.exit()
         elif event.type == KEYDOWN:
-            if event.key == K_LEFT:
-                player.mov = -1
+            if event.key == K_ESCAPE:
+                pygame.quit()
+                sys.exit()
+            elif event.key == K_LEFT:
+                player.mov = -PLAYER_SPEED
             elif event.key == K_RIGHT:
-                player.mov = 1
+                player.mov = PLAYER_SPEED
         elif event.type == KEYUP:
-            if event.key == K_LEFT and player.mov == -1:
+            if event.key == K_LEFT and player.mov == -PLAYER_SPEED:
                 player.mov = 0
-            elif event.key == K_RIGHT and player.mov == 1:
+            elif event.key == K_RIGHT and player.mov == PLAYER_SPEED:
                 player.mov = 0
         elif event.type == MOUSEMOTION:
             mousex, mousey = event.pos
