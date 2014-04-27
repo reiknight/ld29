@@ -4,7 +4,7 @@ from constants import *
 from cell import Cell
 
 class Level:
-    def __init__(self, cell_size = 50, rows = 12, cols = 16):
+    def __init__(self, cell_size = 50, rows = 12, cols = 32):
         self.cell_size = cell_size
         self.rows = rows
         self.cols = cols
