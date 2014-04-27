@@ -1,0 +1,19 @@
+# -*- coding: utf-8 -*-
+
+SURFACE_LEVEL= 5
+
+SKY = 0
+GROUND = 1
+
+DIRT = 0
+STONE = 1
+LIGHT_METAL = 2
+HEAVY_METAL = 3
+OBSIDIAN = 4
+
+CELL_MATERIALS = (DIRT, STONE, LIGHT_METAL, HEAVY_METAL, OBSIDIAN)
+
+COLORS = [
+    (51 , 102, 255), # SKY
+    (51 , 26 , 0  )  # GROUND
+]

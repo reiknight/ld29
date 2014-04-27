@@ -1,19 +1,7 @@
 # -*- coding: utf-8 -*-
 import random
+from constants import *
 from cell import Cell
-
-SURFACE_LEVEL= 5
-
-SKY = 0
-GROUND = 1
-
-DIRT = 0
-STONE = 1
-LIGHT_METAL = 2
-HEAVY_METAL = 3
-OBSIDIAN = 4
-
-CELL_MATERIALS = (DIRT, STONE, LIGHT_METAL, HEAVY_METAL, OBSIDIAN)
 
 class Level:
     def __init__(self, cell_size = 50, rows = 12, cols = 16):

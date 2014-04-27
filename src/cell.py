@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 import pygame
-
-COLORS = [
-    (51 , 102, 255),
-    (51 , 26 , 0  )
-]
+from constants import *
 
 class Cell:
     def __init__(self, cell_type_id, row, col, size):
