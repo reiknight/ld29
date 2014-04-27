@@ -4,6 +4,7 @@ import pygame, sys
 
 from pygame.locals import *
 from constants import *
+from camera import Camera
 from player import Player
 from level import Level
 
@@ -17,14 +18,12 @@ pygame.display.set_caption('Speluncraft without craft')
 
 player = Player()
 level = Level()
+camera = Camera()
 
 font = pygame.font.SysFont("Verdana", 30)
 
 mousex = 0
 mousey = 0
-
-camerax = 0
-cameray = 0
 
 while True:
     #Input
@@ -51,27 +50,16 @@ while True:
     #Update
     player.update()
     level.update()
-    #Camera test
-    playerCenterx, playerCentery = player.getCenter()
-    if (camerax + HALF_WINDOW_WIDTH) - playerCenterx > CAMERA_SLACK:
-        camerax = playerCenterx + CAMERA_SLACK - HALF_WINDOW_WIDTH
-    elif playerCenterx - (camerax + HALF_WINDOW_WIDTH) > CAMERA_SLACK:
-        camerax = playerCenterx - CAMERA_SLACK - HALF_WINDOW_WIDTH
-    if (cameray + HALF_WINDOW_HEIGHT) - playerCentery > CAMERA_SLACK:
-        cameray = playerCentery + CAMERA_SLACK - HALF_WINDOW_HEIGHT
-    elif playerCentery - (cameray + HALF_WINDOW_HEIGHT) > CAMERA_SLACK:
-        cameray = playerCentery - CAMERA_SLACK - HALF_WINDOW_HEIGHT
+    camera.update(player)
 
     #Drawing
     surface.fill((0, 0, 0))
-    level.draw(surface, camerax, cameray)
-    player.draw(surface, camerax, cameray)
+    level.draw(surface, camera)
+    player.draw(surface, camera)
 
     #Debug
-    label = font.render("playerx = %d playery = %d" % (playerCenterx, playerCentery), 1, (255, 255, 255))
+    label = font.render("Debug", 1, (255, 255, 255))
     surface.blit(label, (0, 0))
-    label = font.render("camerax = %d cameray = %d" % (camerax, cameray), 1, (255, 255, 255))
-    surface.blit(label, (0, 30))
     
     pygame.display.update()
     timer.tick(FPS)

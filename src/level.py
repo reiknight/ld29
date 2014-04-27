@@ -25,7 +25,8 @@ class Level:
             for cell in row:
                 cell.update()
 
-    def draw(self, surface, camerax, cameray):
+    def draw(self, surface, camera):
+        camerax, cameray = camera.getPosition()
         for row in self.cells:
             for cell in row:
                 cell.draw(surface, camerax, cameray)
