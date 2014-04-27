@@ -2,16 +2,13 @@
 import pygame
 
 COLORS = [
-    (0, 0, 0),
-    (255, 255, 255),
-    (255, 0, 0),
-    (0, 255, 0),
-    (0, 0, 255)
+    (51 , 102, 255),
+    (51 , 26 , 0  )
 ]
 
 class Cell:
-    def __init__(self, cell_id, row, col, size):
-        self.cell_id = cell_id
+    def __init__(self, cell_type_id, row, col, size):
+        self.cell_type_id = cell_type_id
         self.size = size
         self.x = col * self.size
         self.y = row * self.size
@@ -20,4 +17,4 @@ class Cell:
         pass
 
     def draw(self, surface):
-        pygame.draw.rect(surface, COLORS[self.cell_id], (self.x, self.y, self.x + self.size, self.y + self.size)) 
+        pygame.draw.rect(surface, COLORS[self.cell_type_id], (self.x, self.y, self.x + self.size, self.y + self.size)) 
