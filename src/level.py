@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import random
+import random, pygame
 from constants import *
 from cell import Cell
 
@@ -9,6 +9,8 @@ class Level:
         self.rows = rows
         self.cols = cols
         self.cells = []
+        self.negative_columns = 0
+        self.font = pygame.font.SysFont("Verdana", 30)
 
         for i in range(self.rows):
             row = []
@@ -26,12 +28,13 @@ class Level:
         camerax, cameray = camera.getPosition()
         row, col, cell = self.getCellAt(camerax, cameray)
 
-        if (col + (len(self.cells[0]) - LEVEL_INITIAL_COLS) < 0): # Spawn new column from left
+        if ((col + self.negative_columns) < 0): # Spawn new column from left
             for i in range(self.rows):
                 cell = self.buildCellAt(i, col)
                 self.cells[i].insert(0, cell)
+            self.negative_columns += 1
 
-        if (col + (WINDOW_WIDTH / CELL_SIZE) >= len(self.cells[0])): # Spawn new column from right
+        if (col + self.negative_columns + (WINDOW_WIDTH / CELL_SIZE) >= len(self.cells[0])): # Spawn new column from right
             for i in range(self.rows):
                 cell = self.buildCellAt(i, col + (WINDOW_WIDTH / CELL_SIZE))
                 self.cells[i].append(cell)
@@ -39,11 +42,12 @@ class Level:
     def draw(self, surface, camera):
         camerax, cameray = camera.getPosition()
         camera_row, camera_col, camera_cell = self.getCellAt(camerax, cameray)
-        camera_col += (len(self.cells[0]) - LEVEL_INITIAL_COLS)
+
+        camera_col += self.negative_columns
 
         for i in range(len(self.cells)):
             for j in range(len(self.cells[i])):
-                if (j >= camera_col and j <= camera_col + (WINDOW_WIDTH / CELL_SIZE)):
+                if (j >= camera_col and j <= (camera_col + (WINDOW_WIDTH / CELL_SIZE))):
                     self.cells[i][j].draw(surface, camerax, cameray)
 
     def getCellAt(self, x, y):
