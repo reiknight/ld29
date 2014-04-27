@@ -16,10 +16,12 @@ class Player(Entity):
         self.level = level
         self.sprite = Sprite("player.png")
         self.mov = 0
+        self.pick_type = 1
+        self.pick_amount = 1
     
     def update(self):
         falling = False
-        if not self.level.cells[self.posY+1][self.posX +(1 if self.mov < 0 else 0)].isSolid():
+        if not self.level.cells[self.posY+1][self.posX + (1 if self.mov < 0 else 0)].isSolid():
             self.y += 5
             falling = True
         else:
@@ -36,3 +38,16 @@ class Player(Entity):
 
     def getCenter(self):
         return (self.x + self.w / 2, self.y + self.h / 2)
+    
+    def pick(self, direction):
+        amount, n = self.pick_amount, 1
+        material = self.level.cells[self.posY + direction[0]*n][self.posX + direction[1]*n].material
+        amount -= 1 + (material if material else 0)
+        if material != OBSIDIAN:
+            self.level.cells[self.posY + direction[0]*n][self.posX + direction[1]*n].setMaterial(None)
+        while amount > 0 and material != OBSIDIAN:
+            n+=1
+            material = self.level.cells[self.posY + direction[0]*n][self.posX + direction[1]*n].material
+            if material != OBSIDIAN:
+                self.level.cells[self.posY + direction[0]*n][self.posX + direction[1]*n].setMaterial(None)
+            amount -= 1 + (material if material else 0)

@@ -31,7 +31,7 @@ CELL_SIZE = 50
 
 CELL_TYPE_COLORS = [
     (51 , 102, 255), # SKY
-    (51 , 26 , 0  )  # GROUND
+    (51 , 255 , 0  )  # GROUND
 ]
 
 CELL_MATERIAL_COLORS = [
