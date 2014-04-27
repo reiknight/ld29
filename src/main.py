@@ -14,8 +14,8 @@ timer = pygame.time.Clock()
 surface = pygame.display.set_mode((800,600))
 pygame.display.set_caption('Speluncraft without craft')
 
-player = Player()
 level = Level()
+player = Player(level)
 
 font = pygame.font.SysFont("Verdana", 30)
 
