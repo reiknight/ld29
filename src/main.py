@@ -35,15 +35,29 @@ while True:
             if event.key == K_ESCAPE:
                 pygame.quit()
                 sys.exit()
-            elif event.key == K_LEFT:
+            elif event.key == K_a:
                 player.mov = -PLAYER_SPEED
-            elif event.key == K_RIGHT:
+            elif event.key == K_d:
                 player.mov = PLAYER_SPEED
+            elif event.key == K_LEFT:
+                player.pick((0, -1))
+            elif event.key == K_RIGHT:
+                player.pick((0, 1))
+            elif event.key == K_UP:
+                player.pick((-1, 0))
+            elif event.key == K_DOWN:
+                player.pick((1, 0))
+            elif event.key == K_TAB:
+                if player.pick_amount == 1:
+                    player.pick_amount = 4
+                else:
+                    player.pick_amount = 1
         elif event.type == KEYUP:
-            if event.key == K_LEFT and player.mov == -PLAYER_SPEED:
+            if event.key == K_a and player.mov == -PLAYER_SPEED:
                 player.mov = 0
-            elif event.key == K_RIGHT and player.mov == PLAYER_SPEED:
+            elif event.key == K_d and player.mov == PLAYER_SPEED:
                 player.mov = 0
+            
         elif event.type == MOUSEMOTION:
             mousex, mousey = event.pos
 
@@ -60,16 +74,18 @@ while True:
     #Debug
     label = font.render("FPS: %f" % (timer.get_fps()), 1, (255, 255, 255))
     surface.blit(label, (0, 0))
-    #playerCenterx, playerCentery = player.getCenter()
-    #label = font.render("Player position: %d, %d [%d, %d]" % (playerCenterx, playerCentery, playerCentery // CELL_SIZE, playerCenterx // CELL_SIZE), 1, (255, 255, 255))
-    #surface.blit(label, (0, 30))
-    #camerax, cameray = camera.getPosition()
-    #label = font.render("Camera position: %d, %d [%d, %d]" % (camerax, cameray, cameray // CELL_SIZE, camerax // CELL_SIZE), 1, (255, 255, 255))
-    #surface.blit(label, (0, 60))
-    #rows = len(level.cells)
-    #cols = len(level.cells[0])
-    #label = font.render("Level size: %d, %d" % (rows, cols), 1, (255, 255, 255))
-    #surface.blit(label, (0, 90))
+    playerCenterx, playerCentery = player.getCenter()
+    label = font.render("Player position: %d, %d [%d, %d]" % (playerCenterx, playerCentery, playerCentery // CELL_SIZE, playerCenterx // CELL_SIZE), 1, (255, 255, 255))
+    surface.blit(label, (0, 30))
+    camerax, cameray = camera.getPosition()
+    label = font.render("Camera position: %d, %d [%d, %d]" % (camerax, cameray, cameray // CELL_SIZE, camerax // CELL_SIZE), 1, (255, 255, 255))
+    surface.blit(label, (0, 60))
+    rows = len(level.cells)
+    cols = len(level.cells[0])
+    label = font.render("Level size: %d, %d" % (rows, cols), 1, (255, 255, 255))
+    surface.blit(label, (0, 90))
+    label = font.render("Pick type: %d, %d" % (player.pick_type, player.pick_amount), 1, (255, 255, 255))
+    surface.blit(label, (0, 120))
     
     pygame.display.update()
     timer.tick(FPS)
