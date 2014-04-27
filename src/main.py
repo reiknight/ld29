@@ -31,7 +31,6 @@ while True:
                 player.mov = -1
             elif event.key == RIGHT:
                 player.mov = 1
-                
         elif event.type == KEYUP:
             if event.key == LEFT and player.mov == -1:
                 player.mov = 0
@@ -40,3 +39,4 @@ while True:
     
     pygame.display.update()
     timer.tick(FPS)
+    
