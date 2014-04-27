@@ -7,6 +7,7 @@ from constants import *
 from camera import Camera
 from player import Player
 from level import Level
+from lava import Lava
 
 pygame.init()
 timer = pygame.time.Clock()
@@ -18,6 +19,7 @@ pygame.display.set_caption('Speluncraft without craft')
 
 level = Level(CELL_SIZE, LEVEL_INITIAL_ROWS, LEVEL_INITIAL_COLS)
 player = Player(level, PLAYER_SPAWN_POSITION_COL * CELL_SIZE, (SURFACE_LEVEL - 1 )* CELL_SIZE)
+lava = Lava()
 camera = Camera()
 
 font = pygame.font.SysFont("Verdana", 30)
@@ -65,11 +67,18 @@ while True:
     player.update()
     level.update(camera)
     camera.update(player)
+    lava.update()
 
     #Drawing
     surface.fill((0, 0, 255))
     level.draw(surface, camera)
     player.draw(surface, camera)
+    lava.draw(surface, camera)
+
+    #TODO: just testing lava
+    if(lava.ended and not lava.emerging):
+        lava.emerging = True
+        lava.y = player.y + 500
 
     #Debug
     label = font.render("FPS: %f" % (timer.get_fps()), 1, (255, 255, 255))
