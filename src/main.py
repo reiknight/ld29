@@ -17,14 +17,12 @@ pygame.display.set_caption('Speluncraft without craft')
 player = Player()
 level = Level()
 
+font = pygame.font.SysFont("Verdana", 30)
+
+mousex = 0
+mousey = 0
+
 while True:
-    #Update
-    player.update()
-    level.update()
-    
-    #Drawing
-    level.draw(surface)
-    
     #Input
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -35,12 +33,26 @@ while True:
                 player.mov = -1
             elif event.key == RIGHT:
                 player.mov = 1
-                
         elif event.type == KEYUP:
             if event.key == LEFT and player.mov == -1:
                 player.mov = 0
             elif event.key == RIGHT and player.mov == 1:
                 player.mov = 0
+        elif event.type == MOUSEMOTION:
+            mousex, mousey = event.pos
+
+    #Update
+    player.update()
+    level.update()
+    
+    #Drawing
+    level.draw(surface)
+
+    #Debug
+    row, col, cell = level.getCellAt(mousex, mousey)
+    if (cell != None):
+        label = font.render("Row = %d Col = %d isSolid = %d" % (row, col, cell.isSolid()), 1, (255, 255, 255))
+        surface.blit(label, (0, 0))
     
     pygame.display.update()
     timer.tick(FPS)

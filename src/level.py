@@ -14,8 +14,9 @@ class Level:
             row = []
             for j in range(cols):
                 cell_type_id = SKY if i < SURFACE_LEVEL else GROUND
-                #int(CELL_TYPES * random.random())
                 cell = Cell(cell_type_id, i, j, self.cell_size)
+                if (cell_type_id == GROUND):
+                    cell.setMaterial(CELL_MATERIALS[int(len(CELL_MATERIALS) * random.random())])
                 row.append(cell)
             self.cells.append(row)
 
@@ -28,3 +29,8 @@ class Level:
         for row in self.cells:
             for cell in row:
                 cell.draw(surface)
+
+    def getCellAt(self, x, y):
+        col = int(x / self.cell_size)
+        row = int(y / self.cell_size)
+        return (row, col, self.cells[row][col])
