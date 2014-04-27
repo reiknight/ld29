@@ -16,8 +16,8 @@ surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 #pygame.display.set_icon(pygame.image.load('gameicon.png'))
 pygame.display.set_caption('Speluncraft without craft')
 
-level = Level()
-player = Player(level)
+level = Level(CELL_SIZE, LEVEL_INITIAL_ROWS, LEVEL_INITIAL_COLS)
+player = Player(level, PLAYER_SPAWN_POSITION_COL * CELL_SIZE, (SURFACE_LEVEL - 1 )* CELL_SIZE)
 camera = Camera()
 
 font = pygame.font.SysFont("Verdana", 30)
@@ -49,7 +49,7 @@ while True:
 
     #Update
     player.update()
-    level.update()
+    level.update(camera)
     camera.update(player)
 
     #Drawing
@@ -58,8 +58,18 @@ while True:
     player.draw(surface, camera)
 
     #Debug
-    label = font.render("Debug", 1, (255, 255, 255))
+    label = font.render("FPS: %f" % (timer.get_fps()), 1, (255, 255, 255))
     surface.blit(label, (0, 0))
+    playerCenterx, playerCentery = player.getCenter()
+    label = font.render("Player position: %d, %d [%d, %d]" % (playerCenterx, playerCentery, playerCentery // CELL_SIZE, playerCenterx // CELL_SIZE), 1, (255, 255, 255))
+    surface.blit(label, (0, 30))
+    camerax, cameray = camera.getPosition()
+    label = font.render("Camera position: %d, %d [%d, %d]" % (camerax, cameray, cameray // CELL_SIZE, camerax // CELL_SIZE), 1, (255, 255, 255))
+    surface.blit(label, (0, 60))
+    rows = len(level.cells)
+    cols = len(level.cells[0])
+    label = font.render("Level size: %d, %d" % (rows, cols), 1, (255, 255, 255))
+    surface.blit(label, (0, 90))
     
     pygame.display.update()
     timer.tick(FPS)
