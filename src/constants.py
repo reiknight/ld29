@@ -13,6 +13,8 @@ CAMERA_SLACK = 90 # How far from the center the player moves before moving the c
 PLAYER_SPEED = 5
 
 SURFACE_LEVEL= 5
+LEVEL_INITIAL_ROWS = 32
+LEVEL_INITIAL_COLS = 32
 
 SKY = 0
 GROUND = 1

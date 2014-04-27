@@ -16,7 +16,7 @@ surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 #pygame.display.set_icon(pygame.image.load('gameicon.png'))
 pygame.display.set_caption('Speluncraft without craft')
 
-level = Level()
+level = Level(CELL_SIZE, LEVEL_INITIAL_ROWS, LEVEL_INITIAL_COLS:
 player = Player(level)
 camera = Camera()
 
