@@ -88,7 +88,7 @@ while True:
     surface.blit(label, (0, 60))
     label = font.render("Lava emerge prob: %d" % (lava.emerge_prob(player, level)), 1, (255, 255, 255))
     surface.blit(label, (0, 90))
-    label = font.render("Lava emerging: %d" % (lava.emerging), 1, (255, 255, 255))
+    label = font.render("Lava emerging: %d" % (lava.state == EMERGING), 1, (255, 255, 255))
     surface.blit(label, (0, 120))
     
     pygame.display.update()

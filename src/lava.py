@@ -8,14 +8,14 @@ class Lava:
         self.respawn()
 
     def update(self, dt, player, level):
-        if(self.emerging and not self.ending):
+        if(self.state == EMERGING and not self.state == ENDING):
             self.timer += dt
             self.speed = LAVA_SPEED_INCR * (self.timer / LAVA_SPEED_TIME_INCR)
             self.y -= (LAVA_BASE_SPEED + self.speed) * (dt / 1000.0)
             if (self.y <= SURFACE_LEVEL * CELL_SIZE):
                 self.y = SURFACE_LEVEL * CELL_SIZE
-                self.ending = True
-        elif(self.ending):
+                self.state = ENDING
+        elif(self.state == ENDING):
             self.alpha -= 1
             if (self.alpha <= 0):
                 self.respawn()
@@ -25,7 +25,7 @@ class Lava:
                 self.timer = 0
                 prob = random.randrange(1, 100)
                 if (prob <= self.emerge_prob(player, level)):
-                    self.emerging = True
+                    self.state = EMERGING
                     self.y = player.y + LAVA_EMERGE_CELLS_FROM_PLAYER * CELL_SIZE
                 else:
                     self.checks += 1
@@ -33,7 +33,7 @@ class Lava:
 
     def draw(self, surface, camera):
         camerax, cameray = camera.getPosition()
-        if (self.emerging):
+        if (self.state != ENDED):
             s = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
             s.set_alpha(self.alpha)
             s.fill((255,0,0))
@@ -45,9 +45,7 @@ class Lava:
 
     def respawn(self):
         self.y = 0
-        self.emerging = False
-        self.ending = False
-        self.ended = True
+        self.state = ENDED
         self.alpha = 128
         self.timer = 0
         self.checks = 0
