@@ -3,19 +3,22 @@
 import pygame, sys
 
 from pygame.locals import *
+from constants import *
+from camera import Camera
 from player import Player
 from level import Level
-
-FPS = 60
 
 pygame.init()
 timer = pygame.time.Clock()
 
-surface = pygame.display.set_mode((800,600))
+surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+#TODO: podemos usar un icono de 32x32 para la ventana
+#pygame.display.set_icon(pygame.image.load('gameicon.png'))
 pygame.display.set_caption('Speluncraft without craft')
 
 level = Level()
 player = Player(level)
+camera = Camera()
 
 font = pygame.font.SysFont("Verdana", 30)
 
@@ -29,14 +32,17 @@ while True:
             pygame.quit()
             sys.exit()
         elif event.type == KEYDOWN:
-            if event.key == K_LEFT:
-                player.mov = -1
+            if event.key == K_ESCAPE:
+                pygame.quit()
+                sys.exit()
+            elif event.key == K_LEFT:
+                player.mov = -PLAYER_SPEED
             elif event.key == K_RIGHT:
-                player.mov = 1
+                player.mov = PLAYER_SPEED
         elif event.type == KEYUP:
-            if event.key == K_LEFT and player.mov == -1:
+            if event.key == K_LEFT and player.mov == -PLAYER_SPEED:
                 player.mov = 0
-            elif event.key == K_RIGHT and player.mov == 1:
+            elif event.key == K_RIGHT and player.mov == PLAYER_SPEED:
                 player.mov = 0
         elif event.type == MOUSEMOTION:
             mousex, mousey = event.pos
@@ -44,17 +50,16 @@ while True:
     #Update
     player.update()
     level.update()
-    
+    camera.update(player)
+
     #Drawing
-    level.draw(surface)
-    player.draw(surface)
+    surface.fill((0, 0, 0))
+    level.draw(surface, camera)
+    player.draw(surface, camera)
 
     #Debug
-    row, col, cell = level.getCellAt(mousex, mousey)
-    if (cell != None):
-        label = font.render("Row = %d Col = %d isSolid = %d" % (row, col, cell.isSolid()), 1, (255, 255, 255))
-        surface.blit(label, (0, 0))
+    label = font.render("Debug", 1, (255, 255, 255))
+    surface.blit(label, (0, 0))
     
     pygame.display.update()
     timer.tick(FPS)
-    
