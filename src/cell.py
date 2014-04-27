@@ -22,5 +22,4 @@ class Cell:
             pygame.draw.rect(surface, CELL_MATERIAL_COLORS[self.material], (self.x - camerax, self.y - cameray, self.size, self.size)) 
 
     def isSolid(self):
-        return False
         return self.cell_type_id == GROUND and self.material != None
