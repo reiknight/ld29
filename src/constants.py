@@ -1,5 +1,15 @@
 # -*- coding: utf-8 -*-
 
+FPS = 60
+
+WINDOW_WIDTH = 800
+WINDOW_HEIGHT = 600
+
+HALF_WINDOW_WIDTH = int(WINDOW_WIDTH / 2)
+HALF_WINDOW_HEIGHT = int(WINDOW_HEIGHT / 2)
+
+CAMERA_SLACK = 90 # How far from the center the player moves before moving the camera
+
 SURFACE_LEVEL= 5
 
 SKY = 0

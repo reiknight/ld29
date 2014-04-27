@@ -25,10 +25,10 @@ class Level:
             for cell in row:
                 cell.update()
 
-    def draw(self, surface):
+    def draw(self, surface, camerax, cameray):
         for row in self.cells:
             for cell in row:
-                cell.draw(surface)
+                cell.draw(surface, camerax, cameray)
 
     def getCellAt(self, x, y):
         col = int(x / self.cell_size)

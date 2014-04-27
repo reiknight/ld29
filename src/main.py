@@ -3,15 +3,16 @@
 import pygame, sys
 
 from pygame.locals import *
+from constants import *
 from player import Player
 from level import Level
-
-FPS = 60
 
 pygame.init()
 timer = pygame.time.Clock()
 
-surface = pygame.display.set_mode((800,600))
+surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+#TODO: podemos usar un icono de 32x32 para la ventana
+#pygame.display.set_icon(pygame.image.load('gameicon.png'))
 pygame.display.set_caption('Speluncraft without craft')
 
 player = Player()
@@ -21,6 +22,12 @@ font = pygame.font.SysFont("Verdana", 30)
 
 mousex = 0
 mousey = 0
+
+camerax = 0
+cameray = 0
+
+playerCenterx = HALF_WINDOW_WIDTH
+playerCentery = HALF_WINDOW_HEIGHT
 
 while True:
     #Input
@@ -41,18 +48,34 @@ while True:
         elif event.type == MOUSEMOTION:
             mousex, mousey = event.pos
 
+    if (mousex > HALF_WINDOW_WIDTH):
+        playerCenterx += 10
+    elif (mousex < HALF_WINDOW_HEIGHT):
+        playerCenterx -= 10
+
+    #Camera test
+    if (camerax + HALF_WINDOW_WIDTH) - playerCenterx > CAMERA_SLACK:
+        camerax = playerCenterx + CAMERA_SLACK - HALF_WINDOW_WIDTH
+    elif playerCenterx - (camerax + HALF_WINDOW_WIDTH) > CAMERA_SLACK:
+        camerax = playerCenterx - CAMERA_SLACK - HALF_WINDOW_WIDTH
+    if (cameray + HALF_WINDOW_HEIGHT) - playerCentery > CAMERA_SLACK:
+        cameray = playerCentery + CAMERA_SLACK - HALF_WINDOW_HEIGHT
+    elif playerCentery - (cameray + HALF_WINDOW_HEIGHT) > CAMERA_SLACK:
+        cameray = playerCentery - CAMERA_SLACK - HALF_WINDOW_HEIGHT
+
     #Update
     player.update()
     level.update()
     
     #Drawing
-    level.draw(surface)
+    surface.fill((0, 0, 0))
+    level.draw(surface, camerax, cameray)
 
     #Debug
-    row, col, cell = level.getCellAt(mousex, mousey)
-    if (cell != None):
-        label = font.render("Row = %d Col = %d isSolid = %d" % (row, col, cell.isSolid()), 1, (255, 255, 255))
-        surface.blit(label, (0, 0))
+    label = font.render("playerx = %d playery = %d" % (playerCenterx, playerCentery), 1, (255, 255, 255))
+    surface.blit(label, (0, 0))
+    label = font.render("camerax = %d cameray = %d" % (camerax, cameray), 1, (255, 255, 255))
+    surface.blit(label, (0, 30))
     
     pygame.display.update()
     timer.tick(FPS)
