@@ -20,11 +20,6 @@ class Level:
             self.cells.append(row)
 
     def update(self, camera):
-        # Update cells
-        for row in self.cells:
-            for cell in row:
-                cell.update()
-
         camerax, cameray = camera.getPosition()
         row, col, cell = self.getCellAt(camerax, cameray)
 
@@ -33,22 +28,43 @@ class Level:
                 cell = self.buildCellAt(i, col)
                 self.cells[i].insert(0, cell)
             self.negative_columns += 1
+            self.cols += 1
 
         if (col + self.negative_columns + (WINDOW_WIDTH / CELL_SIZE) >= len(self.cells[0])): # Spawn new column from right
             for i in range(self.rows):
                 cell = self.buildCellAt(i, col + (WINDOW_WIDTH / CELL_SIZE))
                 self.cells[i].append(cell)
+            self.cols += 1
+
+        if (row + (WINDOW_HEIGHT / CELL_SIZE) >= len(self.cells)):
+            new_row = []
+            for j in range(self.cols):
+                cell = self.buildCellAt(row + (WINDOW_HEIGHT / CELL_SIZE), j)
+                new_row.append(cell)
+            self.cells.append(new_row)
+            self.rows += 1
+
+        col += self.negative_columns
+
+        for i in range(row, row + (WINDOW_HEIGHT / CELL_SIZE) + 1):
+            for j in range(col, col + (WINDOW_WIDTH / CELL_SIZE) + 1):
+                try:
+                    self.cells[i][j].update
+                except:
+                    pass
 
     def draw(self, surface, camera):
         camerax, cameray = camera.getPosition()
-        camera_row, camera_col, camera_cell = self.getCellAt(camerax, cameray)
+        row, col, cell = self.getCellAt(camerax, cameray)
 
-        camera_col += self.negative_columns
+        col += self.negative_columns
 
-        for i in range(len(self.cells)):
-            for j in range(len(self.cells[i])):
-                if (j >= camera_col and j <= (camera_col + (WINDOW_WIDTH / CELL_SIZE))):
+        for i in range(row, row + (WINDOW_HEIGHT / CELL_SIZE) + 1):
+            for j in range(col, col + (WINDOW_WIDTH / CELL_SIZE) + 1):
+                try:
                     self.cells[i][j].draw(surface, camerax, cameray)
+                except:
+                    pass
 
     def getCellAt(self, x, y):
         row = int(y / self.cell_size)
