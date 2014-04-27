@@ -16,7 +16,7 @@ class Player(Entity):
         self.level = level
         self.sprite = Sprite("player.png")
         self.mov = 0
-        self.pick_type = 1
+        self.pick_type = 0
         self.pick_amount = 1
         self.jumping = 0
     
@@ -44,15 +44,36 @@ class Player(Entity):
     
     def pick(self, direction):
         amount, n = self.pick_amount, 1
-        material = self.level.cells[self.posY + direction[0]*n][self.posX + direction[1]*n].material
+        if self.pick_type == 0:
+            x = self.posX + direction[1]*n
+            y = self.posY + direction[0]*n
+        else:
+            n = -1
+            if direction[0] != 0:
+                x = self.posX + n
+                y = self.posY + direction[0]
+            else:
+                x = self.posX + direction[1]
+                y = self.posY + n
+        material = self.level.cells[y][x].material
         amount -= 1 + (material if material else 0)
         if material != OBSIDIAN:
-            self.level.cells[self.posY + direction[0]*n][self.posX + direction[1]*n].setMaterial(None)
+            self.level.cells[y][x].setMaterial(None)
         while amount > 0 and material != OBSIDIAN:
             n+=1
-            material = self.level.cells[self.posY + direction[0]*n][self.posX + direction[1]*n].material
+            if self.pick_type == 0:
+                x = self.posX + direction[1]*n
+                y = self.posY + direction[0]*n
+            else:
+                if direction[0] != 0:
+                    x = self.posX + n
+                    y = self.posY + direction[0]
+                else:
+                    x = self.posX + direction[1]
+                    y = self.posY + n
+            material = self.level.cells[y][x].material
             if material != OBSIDIAN:
-                self.level.cells[self.posY + direction[0]*n][self.posX + direction[1]*n].setMaterial(None)
+                self.level.cells[y][x].setMaterial(None)
             amount -= 1 + (material if material else 0)
     
     def jump(self):
@@ -60,3 +81,6 @@ class Player(Entity):
             self.jumping = CELL_SIZE + (CELL_SIZE//2)
         else:
             self.jumping = 0
+            
+    def change_pick_type(self):
+        self.pick_type = (self.pick_type + 1) % 2

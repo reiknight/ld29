@@ -51,6 +51,8 @@ while True:
                 player.pick((1, 0))
             elif event.key == K_SPACE:
                 player.jump()
+            elif event.key == K_q:
+                player.change_pick_type()
             elif event.key == K_TAB:
                 if player.pick_amount == 1:
                     player.pick_amount = 4
