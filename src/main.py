@@ -28,6 +28,8 @@ mousex = 0
 mousey = 0
 
 while True:
+    dt = timer.tick(FPS)
+
     #Input
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -71,7 +73,7 @@ while True:
     player.update()
     level.update(camera)
     camera.update(player)
-    lava.update()
+    lava.update(dt, player, level)
 
     #Drawing
     surface.fill((0, 0, 255))
@@ -79,26 +81,16 @@ while True:
     player.draw(surface, camera)
     lava.draw(surface, camera)
 
-    #TODO: just testing lava
-    if(lava.ended and not lava.emerging):
-        lava.emerging = True
-        lava.y = player.y + 500
-
     #Debug
     label = font.render("FPS: %f" % (timer.get_fps()), 1, (255, 255, 255))
     surface.blit(label, (0, 0))
-    playerCenterx, playerCentery = player.getCenter()
-    label = font.render("Player position: %d, %d [%d, %d]" % (playerCenterx, playerCentery, playerCentery // CELL_SIZE, playerCenterx // CELL_SIZE), 1, (255, 255, 255))
+    label = font.render("Lava timer: %02.f" % (lava.timer), 1, (255, 255, 255))
     surface.blit(label, (0, 30))
-    camerax, cameray = camera.getPosition()
-    label = font.render("Camera position: %d, %d [%d, %d]" % (camerax, cameray, cameray // CELL_SIZE, camerax // CELL_SIZE), 1, (255, 255, 255))
+    label = font.render("Lava checks: %d" % (lava.checks), 1, (255, 255, 255))
     surface.blit(label, (0, 60))
-    rows = len(level.cells)
-    cols = len(level.cells[0])
-    label = font.render("Level size: %d, %d" % (rows, cols), 1, (255, 255, 255))
+    label = font.render("Lava emerge prob: %d" % (lava.emerge_prob(player, level)), 1, (255, 255, 255))
     surface.blit(label, (0, 90))
-    label = font.render("Pick type: %d, %d" % (player.pick_type, player.pick_amount), 1, (255, 255, 255))
+    label = font.render("Lava emerging: %d" % (lava.state == EMERGING), 1, (255, 255, 255))
     surface.blit(label, (0, 120))
     
     pygame.display.update()
-    timer.tick(FPS)
