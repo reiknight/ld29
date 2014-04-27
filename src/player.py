@@ -19,16 +19,16 @@ class Player(Entity):
     
     def update(self):
         falling = False
-        if not self.level.cells[self.posY+1][self.posX + (0 if self.mov > 0 else 1)].isSolid():
+        if not self.level.cells[self.posY+1][self.posX +(1 if self.mov < 0 else 0)].isSolid():
             self.y += 5
             falling = True
         else:
             falling = False
         if self.mov < 0:
-            if not self.level.cells[self.posY + (1 if falling else 0)][(self.x + self.mov)//CELL_SIZE].isSolid():
+            if not self.level.cells[self.posY][(self.x + self.mov)//CELL_SIZE].isSolid() and (falling and not self.level.cells[self.posY+1][(self.x + self.mov)//CELL_SIZE].isSolid() or not falling):
                 self.x += self.mov
         elif self.mov > 0:
-            if not self.level.cells[self.posY + (1 if falling else 0)][(self.x + self.mov)//CELL_SIZE+1].isSolid():
+            if not self.level.cells[self.posY][(self.x + self.mov)//CELL_SIZE+1].isSolid() and (falling and not self.level.cells[self.posY+1][(self.x + self.mov)//CELL_SIZE+1].isSolid() or not falling) :
                 self.x += self.mov
         
         self.posX = self.x//CELL_SIZE
