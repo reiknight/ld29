@@ -33,9 +33,9 @@ OBSIDIAN = 4
 CELL_MATERIALS = (DIRT, STONE, LIGHT_METAL, HEAVY_METAL, OBSIDIAN)
 
 CELL_MATERIAL_SPAWN_PROB = {
-    DIRT:        (100, 80, 40, 20, 10),
-    STONE:       (  0, 20, 40, 20, 20),
-    LIGHT_METAL: (  0,  0, 20, 40, 30),
+    DIRT:        ( 90, 75, 40, 20, 10),
+    STONE:       ( 10, 20, 40, 20, 20),
+    LIGHT_METAL: (  0,  5, 20, 40, 30),
     HEAVY_METAL: (  0,  0,  0, 20, 30),
     OBSIDIAN:    (  0,  0,  0,  0, 10)
 }
