@@ -16,8 +16,8 @@ surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 #pygame.display.set_icon(pygame.image.load('gameicon.png'))
 pygame.display.set_caption('Speluncraft without craft')
 
-level = Level(CELL_SIZE, LEVEL_INITIAL_ROWS, LEVEL_INITIAL_COLS:
-player = Player(level)
+level = Level(CELL_SIZE, LEVEL_INITIAL_ROWS, LEVEL_INITIAL_COLS)
+player = Player(level, PLAYER_SPAWN_POSITION_COL * CELL_SIZE, (SURFACE_LEVEL - 1 )* CELL_SIZE)
 camera = Camera()
 
 font = pygame.font.SysFont("Verdana", 30)

@@ -16,7 +16,8 @@ class Level:
                 cell_type_id = SKY if i < SURFACE_LEVEL else GROUND
                 cell = Cell(cell_type_id, i, j, self.cell_size)
                 if (cell_type_id == GROUND):
-                    cell.setMaterial(CELL_MATERIALS[int(len(CELL_MATERIALS) * random.random())])
+                    #cell.setMaterial(CELL_MATERIALS[int(len(CELL_MATERIALS) * random.random())])
+                    cell.setMaterial(STONE)
                 row.append(cell)
             self.cells.append(row)
 

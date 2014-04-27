@@ -13,6 +13,7 @@ CAMERA_SLACK = 90 # How far from the center the player moves before moving the c
 PLAYER_SPEED = 5
 
 SURFACE_LEVEL= 5
+PLAYER_SPAWN_POSITION_COL = 10
 LEVEL_INITIAL_ROWS = 32
 LEVEL_INITIAL_COLS = 32
 
