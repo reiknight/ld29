@@ -53,7 +53,7 @@ while True:
     camera.update(player)
 
     #Drawing
-    surface.fill((0, 0, 0))
+    surface.fill((0, 0, 255))
     level.draw(surface, camera)
     player.draw(surface, camera)
 
