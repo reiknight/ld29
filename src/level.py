@@ -63,10 +63,11 @@ class Level:
         return cell
 
     def materialAt(self, row, col):
-        if (row < SURFACE_LEVEL + 5):
-            return CELL_MATERIALS[random.randint(0, 1)]
-        elif(row < SURFACE_LEVEL + 15):
-            return CELL_MATERIALS[random.randint(0, 2)]
-        else:
-            return CELL_MATERIALS[random.randint(0, len(CELL_MATERIALS) - 1)]
+        #if (row < SURFACE_LEVEL + 5):
+        #    return CELL_MATERIALS[random.randint(0, 1)]
+        #elif(row < SURFACE_LEVEL + 15):
+        #    return CELL_MATERIALS[random.randint(0, 2)]
+        #else:
+        #    return CELL_MATERIALS[random.randint(0, len(CELL_MATERIALS) - 1)]
+        return CELL_MATERIALS[random.randint(0, len(CELL_MATERIALS) - 1)]
 
