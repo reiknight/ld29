@@ -30,7 +30,7 @@ class Level:
             self.negative_columns += 1
             self.cols += 1
 
-        if (col + self.negative_columns + (WINDOW_WIDTH / CELL_SIZE) >= len(self.cells[0])): # Spawn new column from right
+        if (col + self.negative_columns + (WINDOW_WIDTH // CELL_SIZE) >= len(self.cells[0])): # Spawn new column from right
             for i in range(self.rows):
                 cell = self.buildCellAt(i, col + (WINDOW_WIDTH / CELL_SIZE))
                 self.cells[i].append(cell)
@@ -39,15 +39,15 @@ class Level:
         if (row + (WINDOW_HEIGHT / CELL_SIZE) >= len(self.cells)):
             new_row = []
             for j in range(self.cols):
-                cell = self.buildCellAt(row + (WINDOW_HEIGHT / CELL_SIZE), j)
+                cell = self.buildCellAt(row + (WINDOW_HEIGHT // CELL_SIZE), j)
                 new_row.append(cell)
             self.cells.append(new_row)
             self.rows += 1
 
         col += self.negative_columns
 
-        for i in range(row, row + (WINDOW_HEIGHT / CELL_SIZE) + 1):
-            for j in range(col, col + (WINDOW_WIDTH / CELL_SIZE) + 1):
+        for i in range(row, row + (WINDOW_HEIGHT // CELL_SIZE) + 1):
+            for j in range(col, col + (WINDOW_WIDTH // CELL_SIZE) + 1):
                 try:
                     self.cells[i][j].update
                 except:
@@ -59,8 +59,8 @@ class Level:
 
         col += self.negative_columns
 
-        for i in range(row, row + (WINDOW_HEIGHT / CELL_SIZE) + 1):
-            for j in range(col, col + (WINDOW_WIDTH / CELL_SIZE) + 1):
+        for i in range(row, row + (WINDOW_HEIGHT // CELL_SIZE) + 1):
+            for j in range(col, col + (WINDOW_WIDTH // CELL_SIZE) + 1):
                 try:
                     self.cells[i][j].draw(surface, camerax, cameray)
                 except:
