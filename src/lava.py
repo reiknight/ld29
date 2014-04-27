@@ -14,7 +14,12 @@ class Lava:
             self.y -= (LAVA_BASE_SPEED + self.speed) * (dt / 1000.0)
             if (self.y <= SURFACE_LEVEL * CELL_SIZE):
                 self.y = SURFACE_LEVEL * CELL_SIZE
+                self.state = CLEANING
+        elif(self.state == CLEANING):
+            self.alpha += 1
+            if (self.alpha >= 255):
                 self.state = ENDING
+                level.respawn()
         elif(self.state == ENDING):
             self.alpha -= 1
             if (self.alpha <= 0):

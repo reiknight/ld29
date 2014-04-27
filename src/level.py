@@ -8,15 +8,9 @@ class Level:
         self.cell_size = cell_size
         self.rows = rows
         self.cols = cols
-        self.cells = []
         self.font = pygame.font.SysFont("Verdana", 30)
 
-        for i in range(self.rows):
-            row = []
-            for j in range(self.cols):
-                cell = self.buildCellAt(i, j)
-                row.append(cell)
-            self.cells.append(row)
+        self.respawn()
 
     def update(self, camera):
         camerax, cameray = camera.getPosition()
@@ -84,3 +78,11 @@ class Level:
         tier_level = MAX_TIER_LEVEL if tier_level > MAX_TIER_LEVEL else tier_level
         return tier_level
 
+    def respawn(self):
+        self.cells = []
+        for i in range(self.rows):
+            row = []
+            for j in range(self.cols):
+                cell = self.buildCellAt(i, j)
+                row.append(cell)
+            self.cells.append(row)
