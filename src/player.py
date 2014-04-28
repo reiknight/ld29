@@ -113,3 +113,4 @@ class Player(Sprite):
     def respawn(self):
         self.x = self.initial_x
         self.y = self.initial_y
+        self.score = 0

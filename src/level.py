@@ -11,7 +11,7 @@ class Level:
 
         self.respawn()
 
-    def update(self, camera):
+    def update(self, player, camera):
         camerax, cameray = camera.getPosition()
         row, col, cell = self.getCellAt(camerax, cameray)
 
@@ -32,7 +32,7 @@ class Level:
         for i in range(row, row + (WINDOW_HEIGHT // CELL_SIZE) + 1):
             for j in range(col, col + (WINDOW_WIDTH // CELL_SIZE) + 1):
                 try:
-                    self.cells[i][j].update
+                    self.cells[i][j].update(player)
                 except:
                     pass
 

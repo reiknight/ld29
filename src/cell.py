@@ -19,9 +19,9 @@ class Cell(Entity):
         else:
             self.material = material
 
-    def update(self):
+    def update(self, player):
         if (self.treasure):
-            self.treasure.update()
+            self.treasure.update(player)
 
     def draw(self, surface, camera):
         Entity.draw(self, surface, camera)
