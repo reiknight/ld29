@@ -43,6 +43,18 @@ while True:
                 if event.key == K_ESCAPE:
                     #configuration.save_score(player.score)
                     conf.state = MENU_STATE
+                elif GOD_MODE and event.key == K_a:
+                    player.mov = -5 * PLAYER_SPEED
+                    player.movy = 0
+                elif GOD_MODE and event.key == K_d:
+                    player.mov = 5 * PLAYER_SPEED
+                    player.movy = 0
+                elif GOD_MODE and event.key == K_w:
+                    player.movy = -5 * PLAYER_SPEED
+                    player.mov = 0
+                elif GOD_MODE and event.key == K_s:
+                    player.movy = 5 * PLAYER_SPEED
+                    player.mov = 0
                 elif event.key == K_a:
                     player.mov = -PLAYER_SPEED
                 elif event.key == K_d:
@@ -65,7 +77,19 @@ while True:
                     else:
                         player.pick_amount = 1
             elif event.type == KEYUP:
-                if event.key == K_a and player.mov == -PLAYER_SPEED:
+                if GOD_MODE and event.key == K_a:
+                    player.mov = 0
+                    player.movy = 0
+                elif GOD_MODE and event.key == K_d:
+                    player.mov = 0
+                    player.movy = 0
+                elif GOD_MODE and event.key == K_w:
+                    player.movy = 0
+                    player.mov = 0
+                elif GOD_MODE and event.key == K_s:
+                    player.movy = 0
+                    player.mov = 0
+                elif event.key == K_a and player.mov == -PLAYER_SPEED:
                     player.mov = 0
                 elif event.key == K_d and player.mov == PLAYER_SPEED:
                     player.mov = 0

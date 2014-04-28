@@ -17,26 +17,31 @@ class Player(Entity):
         self.level = level
         self.sprite = Sprite("player.png")
         self.mov = 0
+        self.movy = 0
         self.pick_type = 0
         self.pick_amount = 1
         self.jumping = 0
     
     def update(self):
-        self.falling = False
-        if self.jumping > 0:
-            if not self.level.cells[self.posY-1][(self.x + self.mov)//CELL_SIZE].isSolid():
-                self.y -= 5
-            self.jumping -= 5
-        elif not self.level.cells[self.posY+1][self.posX + (1 if self.mov < 0 else 0)].isSolid() and self.jumping <= 0:
-            self.y += 5
-            self.falling = True
-        if self.mov < 0:
-            if not self.level.cells[self.posY][(self.x + self.mov)//CELL_SIZE].isSolid() and ((self.falling or self.jumping > 0) and not self.level.cells[self.posY+1][(self.x + self.mov)//CELL_SIZE].isSolid() or not (self.falling or self.jumping > 0)):
-                self.x += self.mov
-        elif self.mov > 0:
-            if not self.level.cells[self.posY][(self.x + self.mov)//CELL_SIZE+1].isSolid() and ((self.falling or self.jumping > 0) and not self.level.cells[self.posY+1][(self.x + self.mov)//CELL_SIZE+1].isSolid() or not (self.falling or self.jumping > 0)) :
-                self.x += self.mov
-        
+        if GOD_MODE:
+            self.x += self.mov
+            self.y += self.movy
+        else:
+            self.falling = False
+            if self.jumping > 0:
+                if not self.level.cells[self.posY-1][(self.x + self.mov)//CELL_SIZE].isSolid():
+                    self.y -= 5
+                self.jumping -= 5
+            elif not self.level.cells[self.posY+1][self.posX + (1 if self.mov < 0 else 0)].isSolid() and self.jumping <= 0:
+                self.y += 5
+                self.falling = True
+            if self.mov < 0:
+                if not self.level.cells[self.posY][(self.x + self.mov)//CELL_SIZE].isSolid() and ((self.falling or self.jumping > 0) and not self.level.cells[self.posY+1][(self.x + self.mov)//CELL_SIZE].isSolid() or not (self.falling or self.jumping > 0)):
+                    self.x += self.mov
+            elif self.mov > 0:
+                if not self.level.cells[self.posY][(self.x + self.mov)//CELL_SIZE+1].isSolid() and ((self.falling or self.jumping > 0) and not self.level.cells[self.posY+1][(self.x + self.mov)//CELL_SIZE+1].isSolid() or not (self.falling or self.jumping > 0)) :
+                    self.x += self.mov
+            
         self.posX = self.x//CELL_SIZE
         self.posY = self.y//CELL_SIZE
     

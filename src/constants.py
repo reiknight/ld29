@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 FPS = 60
+GOD_MODE = True
 
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
