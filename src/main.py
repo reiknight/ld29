@@ -33,6 +33,8 @@ font = pygame.font.SysFont("Verdana", 30)
 mousex = 0
 mousey = 0
 
+player_score = 0
+
 while True:
     dt = timer.tick(FPS)
     if conf.state == GAME_STATE:
@@ -111,7 +113,7 @@ while True:
 
         #Update
         player.update()
-        level.update(camera)
+        level.update(player, camera)
         camera.update(player)
         lava.update(dt, player, level, camera)
 
@@ -129,6 +131,11 @@ while True:
         if (sound_manager.playing_background_music and sound_manager.music_playing == LAVA_MUSIC_PATH and lava.state == ENDED):
             sound_manager.stop_background_music()
 
+        if (player_score != player.score):
+            sound_manager.play_effect(MONEY_SOUND_PATH)
+
+        player_score = player.score
+
         #Drawing
         surface.fill((0, 0, 255))
         level.draw(surface, camera)
@@ -139,7 +146,7 @@ while True:
         label = font.render("FPS: %f" % (timer.get_fps()), 1, (255, 255, 255))
         surface.blit(label, (0, 0))
         row, col, cell = level.getCellAt(player.x, player.y)
-        label = font.render("Player: (%d, %d)" % (row, col), 1, (255, 255, 255))
+        label = font.render("Score: %d R" % (player.score), 1, (255, 255, 255))
         surface.blit(label, (0, 30))
     
     elif conf.state == MENU_STATE:

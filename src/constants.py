@@ -109,3 +109,4 @@ SHOP_MUSIC_PATH = "assets/shop.ogg"
 
 JUMP_SOUND_PATH = "assets/jump.wav"
 PICK_SOUND_PATH = "assets/pick.wav"
+MONEY_SOUND_PATH = "assets/money.wav"

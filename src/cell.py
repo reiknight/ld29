@@ -23,9 +23,9 @@ class Cell(Sprite):
             else:
                 self.texture = None
 
-    def update(self):
+    def update(self, player):
         if (self.treasure):
-            self.treasure.update()
+            self.treasure.update(player)
 
     def draw(self, surface, camera):
         camerax, cameray = camera.getPosition()
