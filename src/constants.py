@@ -89,3 +89,8 @@ ENDED = 0
 ENDING = 1
 EMERGING = 2
 CLEANING = 3
+
+# Music
+NORMAL_MUSIC_PATH = "assets/speluncraft.ogg"
+LAVA_MUSIC_PATH = "assets/lavacraft.ogg"
+SHOP_MUSIC_PATH = "assets/shop.ogg"
