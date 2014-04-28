@@ -51,6 +51,13 @@ CELL_MATERIALS = (DIRT, STONE, LIGHT_METAL, HEAVY_METAL, OBSIDIAN)
 
 TIER_LEVEL_MULTIPLY = 30
 MAX_TIER_LEVEL = 4
+CELL_MATERIAL_DURABILITY = {
+    DIRT:        1,
+    STONE:       2,
+    LIGHT_METAL: 4,
+    HEAVY_METAL: 6,
+    OBSIDIAN:    42
+}
 CELL_MATERIAL_TEXTURES_PATH = {
     DIRT:        "assets/tierra.png",
     STONE:       "assets/rock.png",

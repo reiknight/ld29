@@ -80,7 +80,8 @@ class Player(Sprite):
             cell = self.level.cells[row - 1][col]
 
         if (cell.isSolid()):
-            cell.setMaterial(None)
+            if (cell.hit()):
+                cell.setMaterial(None)
             return True
 
         return False

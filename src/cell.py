@@ -20,6 +20,7 @@ class Cell(Sprite):
             self.material = material
             if (self.material != None):
                 self.set_texture(CELL_MATERIAL_TEXTURES_PATH[self.material])
+                self.durability = CELL_MATERIAL_DURABILITY[self.material]
             else:
                 self.texture = None
 
@@ -37,3 +38,7 @@ class Cell(Sprite):
 
     def isSolid(self):
         return self.cell_type_id == GROUND and self.material != None
+
+    def hit(self):
+        self.durability -= 1
+        return self.durability <= 0
