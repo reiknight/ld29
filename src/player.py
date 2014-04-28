@@ -68,44 +68,63 @@ class Player(Sprite):
         return (self.x + self.w / 2, self.y + self.h / 2)
     
     def pick(self, direction):
-        amount, n = self.pick_amount, 1
-        if self.pick_type == 0:
-            x = self.posX + direction[1]*n
-            y = self.posY + direction[0]*n
-        else:
-            n = -1
-            if direction[0] != 0:
-                x = self.posX + n
-                y = self.posY + direction[0]
-            else:
-                x = self.posX + direction[1]
-                y = self.posY + n
-        material = self.level.cells[y][x].material
-        amount -= 1 + (material if material else 0)
-        if material != OBSIDIAN:
-            self.level.cells[y][x].setMaterial(None)
-        while amount > 0 and material != OBSIDIAN:
-            n+=1
-            if self.pick_type == 0:
-                x = self.posX + direction[1]*n
-                y = self.posY + direction[0]*n
-            else:
-                if direction[0] != 0:
-                    x = self.posX + n
-                    y = self.posY + direction[0]
-                else:
-                    x = self.posX + direction[1]
-                    y = self.posY + n
-            material = self.level.cells[y][x].material
-            if material != OBSIDIAN:
-                self.level.cells[y][x].setMaterial(None)
-            amount -= 1 + (material if material else 0)
+        row, col, cell = self.level.getCellAt(self.x + self.w / 2, self.y + self.w / 2)
+
+        if(direction[1] > 0): # pick right
+            cell = self.level.cells[row][col + 1]
+        elif(direction[1] < 0): # pick left
+            cell = self.level.cells[row][col - 1]
+        elif(direction[0] > 0): # pick bottom
+            cell = self.level.cells[row + 1][col]
+        elif(direction[0] < 0): # pick top
+            cell = self.level.cells[row - 1][col]
+
+        if (cell.isSolid()):
+            cell.setMaterial(None)
+            return True
+
+        return False
+
+        #amount, n = self.pick_amount, 1
+        #if self.pick_type == 0:
+        #    x = self.posX + direction[1]*n
+        #    y = self.posY + direction[0]*n
+        #else:
+        #    n = -1
+        #    if direction[0] != 0:
+        #        x = self.posX + n
+        #        y = self.posY + direction[0]
+        #    else:
+        #        x = self.posX + direction[1]
+        #        y = self.posY + n
+        #material = self.level.cells[y][x].material
+        #amount -= 1 + (material if material else 0)
+        #if material != OBSIDIAN:
+        #    self.level.cells[y][x].setMaterial(None)
+        #while amount > 0 and material != OBSIDIAN:
+        #    n+=1
+        #    if self.pick_type == 0:
+        #        x = self.posX + direction[1]*n
+        #        y = self.posY + direction[0]*n
+        #    else:
+        #        if direction[0] != 0:
+        #            x = self.posX + n
+        #            y = self.posY + direction[0]
+        #        else:
+        #            x = self.posX + direction[1]
+        #            y = self.posY + n
+        #    material = self.level.cells[y][x].material
+        #    if material != OBSIDIAN:
+        #        self.level.cells[y][x].setMaterial(None)
+        #    amount -= 1 + (material if material else 0)
     
     def jump(self):
         if self.jumping <= 0 and not self.falling:
             self.jumping = CELL_SIZE + (CELL_SIZE//2)
+            return True
         else:
             self.jumping = 0
+        return False
             
     def change_pick_type(self):
         self.pick_type = (self.pick_type + 1) % 2
