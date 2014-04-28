@@ -51,6 +51,13 @@ CELL_MATERIALS = (DIRT, STONE, LIGHT_METAL, HEAVY_METAL, OBSIDIAN)
 
 TIER_LEVEL_MULTIPLY = 30
 MAX_TIER_LEVEL = 4
+CELL_MATERIAL_TEXTURES_PATH = {
+    DIRT:        "assets/tierra.png",
+    STONE:       "assets/rock.png",
+    LIGHT_METAL: "assets/soft_metal.png",
+    HEAVY_METAL: "assets/heavy_metal.png",
+    OBSIDIAN:    "assets/obsidian.png"
+}
 CELL_MATERIAL_SPAWN_PROB = {
     DIRT:        ( 90, 75, 40, 20, 10),
     STONE:       ( 10, 20, 40, 20, 20),
@@ -69,7 +76,7 @@ TREASURE_VALUES = (
 
 CELL_TYPE_COLORS = [
     (51 , 102, 255), # SKY
-    (51 , 255 , 0  )  # GROUND
+    (176, 139 , 99)  # GROUND
 ]
 
 CELL_MATERIAL_COLORS = [
