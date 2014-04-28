@@ -113,7 +113,12 @@ while True:
         player.update()
         level.update(camera)
         camera.update(player)
-        lava.update(dt, player, level)
+        lava.update(dt, player, level, camera)
+
+        if (lava.state != ENDED and player.collideWith(lava)):
+            player.respawn()
+            level.respawn()
+            lava.respawn()
 
         if (lava.state == EMERGING):
             if (sound_manager.playing_background_music and sound_manager.music_playing == NORMAL_MUSIC_PATH):

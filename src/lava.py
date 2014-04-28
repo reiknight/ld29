@@ -1,13 +1,20 @@
 # -*- coding: utf-8 -*-
 
 import pygame, random
+from entity import Entity
 from constants import *
 
-class Lava:
+class Lava(Entity):
     def __init__(self):
+        self.x = 0
+        self.y = 0
+        self.bounding_box = (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
         self.respawn()
 
-    def update(self, dt, player, level):
+    def update(self, dt, player, level, camera):
+        camerax, cameray = camera.getPosition()
+
+        self.x = camerax
         if(self.state == EMERGING and not self.state == ENDING):
             self.timer += dt
             self.speed = LAVA_SPEED_INCR * (self.timer / LAVA_SPEED_TIME_INCR)
@@ -42,7 +49,7 @@ class Lava:
             s = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
             s.set_alpha(self.alpha)
             s.fill((255,0,0))
-            surface.blit(s, (0, self.y - cameray))
+            surface.blit(s, (self.x - camerax, self.y - cameray))
 
     def emerge_prob(self, player, level):
         row, col, cell = level.getCellAt(player.x, player.y)

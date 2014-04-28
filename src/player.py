@@ -9,6 +9,8 @@ class Player(Sprite):
     def __init__(self, level, score = 0, x = 750, y = 0):
         self.x = x
         self.y = y
+        self.initial_x = x
+        self.initial_y = y
         self.score = score
         self.w = CELL_SIZE
         self.h = CELL_SIZE
@@ -55,16 +57,6 @@ class Player(Sprite):
                 else:
                     self.y -= 5
                     self.falling = False
-
-            #self.falling = False
-            #if self.jumping > 0:
-            #    if not self.level.cells[self.posY-1][(self.x + self.mov)//CELL_SIZE].isSolid():
-            #        self.y -= 5
-            #    self.jumping -= 5
-            #elif not self.level.cells[self.posY+1][self.posX + (1 if self.mov < 0 else 0)].isSolid() and self.jumping <= 0:
-            #    self.y += 5
-            #    self.falling = True
-
             
         self.posX = self.x//CELL_SIZE
         self.posY = self.y//CELL_SIZE
@@ -117,3 +109,7 @@ class Player(Sprite):
             
     def change_pick_type(self):
         self.pick_type = (self.pick_type + 1) % 2
+
+    def respawn(self):
+        self.x = self.initial_x
+        self.y = self.initial_y
