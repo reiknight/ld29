@@ -91,6 +91,7 @@ EMERGING = 2
 CLEANING = 3
 
 # Music
+MENU_MUSIC_PATH = "assets/menu.ogg"
 NORMAL_MUSIC_PATH = "assets/speluncraft.ogg"
 LAVA_MUSIC_PATH = "assets/lavacraft.ogg"
 SHOP_MUSIC_PATH = "assets/shop.ogg"

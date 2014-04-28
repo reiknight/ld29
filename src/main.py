@@ -36,6 +36,8 @@ mousey = 0
 while True:
     dt = timer.tick(FPS)
     if conf.state == GAME_STATE:
+        if (sound_manager.playing_background_music and sound_manager.music_playing != NORMAL_MUSIC_PATH):
+            sound_manager.stop_background_music()
         if (not sound_manager.playing_background_music and lava.state != EMERGING):
             sound_manager.play_background_music(NORMAL_MUSIC_PATH)
 
@@ -138,8 +140,10 @@ while True:
         #surface.blit(label, (0, 150))
     
     elif conf.state == MENU_STATE:
-        if (sound_manager.playing_background_music):
+        if (sound_manager.playing_background_music and sound_manager.music_playing != MENU_MUSIC_PATH):
             sound_manager.stop_background_music()
+        elif (not sound_manager.playing_background_music):
+            sound_manager.play_background_music(MENU_MUSIC_PATH)
         menu.draw_menu(surface, font, conf)
     elif conf.state == CONTINUE_GAME_STATE:
         conf.state = GAME_STATE
