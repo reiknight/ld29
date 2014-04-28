@@ -36,7 +36,7 @@ mousey = 0
 while True:
     dt = timer.tick(FPS)
     if conf.state == GAME_STATE:
-        if (not sound_manager.playing_background_music):
+        if (not sound_manager.playing_background_music and lava.state != EMERGING):
             sound_manager.play_background_music(NORMAL_MUSIC_PATH)
 
         #Input
@@ -107,6 +107,15 @@ while True:
         level.update(camera)
         camera.update(player)
         lava.update(dt, player, level)
+
+        if (lava.state == EMERGING):
+            if (sound_manager.playing_background_music and sound_manager.music_playing == NORMAL_MUSIC_PATH):
+                sound_manager.stop_background_music()
+            elif(not sound_manager.playing_background_music):
+                sound_manager.play_background_music(LAVA_MUSIC_PATH)
+
+        if (lava.state == CLEANING):
+            sound_manager.stop_background_music()
 
         #Drawing
         surface.fill((0, 0, 255))
