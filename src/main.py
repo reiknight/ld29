@@ -20,8 +20,8 @@ surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 #pygame.display.set_icon(pygame.image.load('gameicon.png'))
 pygame.display.set_caption('Speluncraft without craft')
 
-conf = Configuration()
 sound_manager = SoundManager()
+conf = Configuration()
 
 level = Level(CELL_SIZE, LEVEL_INITIAL_ROWS, LEVEL_INITIAL_COLS)
 player = Player(level, 0, PLAYER_SPAWN_POSITION_COL * CELL_SIZE, (SURFACE_LEVEL - 1 )* CELL_SIZE)
@@ -144,7 +144,13 @@ while True:
             sound_manager.stop_background_music()
         elif (not sound_manager.playing_background_music):
             sound_manager.play_background_music(MENU_MUSIC_PATH)
+
         menu.draw_menu(surface, font, conf)
+        if (not conf.music_enabled):
+            sound_manager.enabled = False
+            sound_manager.stop_background_music()
+        elif(not sound_manager.enabled):
+            sound_manager.enabled = True
     elif conf.state == CONTINUE_GAME_STATE:
         conf.state = GAME_STATE
     elif conf.state == NEW_GAME_STATE:
