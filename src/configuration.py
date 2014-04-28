@@ -5,7 +5,7 @@ from constants import *
 
 class Configuration():
     def __init__(self):
-        self.music_enabled = True
+        self.music_enabled = MUSIC_ENABLED_BY_DEFAULT
         self.state = MENU_STATE
 
 def save_score(score):

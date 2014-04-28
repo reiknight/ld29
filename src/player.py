@@ -28,24 +28,43 @@ class Player(Sprite):
             self.x += self.mov
             self.y += self.movy
         else:
-            self.falling = False
-            if self.jumping > 0:
-                if not self.level.cells[self.posY-1][(self.x + self.mov)//CELL_SIZE].isSolid():
-                    self.y -= 5
-                self.jumping -= 5
-            elif not self.level.cells[self.posY+1][self.posX + (1 if self.mov < 0 else 0)].isSolid() and self.jumping <= 0:
-                self.y += 5
-                self.falling = True
-
             self.x += self.mov
             if self.mov > 0:
-                row, col, cell = self.level.getCellAt(self.x + CELL_SIZE, self.y)
-                if (cell.isSolid() and self.collideWith(cell)):
+                row, col, top_cell = self.level.getCellAt(self.x + self.bounding_box[0] + self.bounding_box[2], self.y + self.bounding_box[1])
+                row, col, bottom_cell = self.level.getCellAt(self.x + self.bounding_box[0] + self.bounding_box[2], self.y + self.bounding_box[1] + self.bounding_box[3])
+                if (top_cell.isSolid() and self.collideWith(top_cell) or bottom_cell.isSolid() and self.collideWith(bottom_cell)):
                     self.x -= self.mov
             if self.mov < 0:
-                row, col, cell = self.level.getCellAt(self.x, self.y)
-                if (cell.isSolid() and self.collideWith(cell)):
+                row, col, top_cell = self.level.getCellAt(self.x + self.bounding_box[0], self.y + self.bounding_box[1])
+                row, col, bottom_cell = self.level.getCellAt(self.x + self.bounding_box[0], self.y + self.bounding_box[1] + self.bounding_box[3])
+                if (top_cell.isSolid() and self.collideWith(top_cell) or bottom_cell.isSolid() and self.collideWith(bottom_cell)):
                     self.x -= self.mov
+
+            if self.jumping > 0:
+                row, col, left_cell = self.level.getCellAt(self.x + self.bounding_box[0], self.y + self.bounding_box[1])
+                row, col, right_cell = self.level.getCellAt(self.x + self.bounding_box[0] + self.bounding_box[2], self.y + self.bounding_box[1])
+                if (not(left_cell.isSolid() and self.collideWith(left_cell)) and not(right_cell.isSolid() and self.collideWith(right_cell))):
+                    self.y -= 5
+                self.jumping -= 5
+            else:
+                row, col, left_cell = self.level.getCellAt(self.x + self.bounding_box[0], self.y + self.bounding_box[1] + self.bounding_box[3])
+                row, col, right_cell = self.level.getCellAt(self.x + self.bounding_box[0] + self.bounding_box[2], self.y + self.bounding_box[1] + self.bounding_box[3])
+                self.y += 5
+                if (not(left_cell.isSolid() and self.collideWith(left_cell)) and not(right_cell.isSolid() and self.collideWith(right_cell))):
+                    self.falling = True
+                else:
+                    self.y -= 5
+                    self.falling = False
+
+            #self.falling = False
+            #if self.jumping > 0:
+            #    if not self.level.cells[self.posY-1][(self.x + self.mov)//CELL_SIZE].isSolid():
+            #        self.y -= 5
+            #    self.jumping -= 5
+            #elif not self.level.cells[self.posY+1][self.posX + (1 if self.mov < 0 else 0)].isSolid() and self.jumping <= 0:
+            #    self.y += 5
+            #    self.falling = True
+
             
         self.posX = self.x//CELL_SIZE
         self.posY = self.y//CELL_SIZE

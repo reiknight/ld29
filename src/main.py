@@ -131,18 +131,11 @@ while True:
         lava.draw(surface, camera)
 
         #Debug
-        #label = font.render("FPS: %f" % (timer.get_fps()), 1, (255, 255, 255))
-        #surface.blit(label, (0, 0))
-        #label = font.render("Lava timer: %02.f" % (lava.timer), 1, (255, 255, 255))
-        #surface.blit(label, (0, 30))
-        #label = font.render("Lava checks: %d" % (lava.checks), 1, (255, 255, 255))
-        #surface.blit(label, (0, 60))
-        #label = font.render("Lava emerge prob: %d" % (lava.emerge_prob(player, level)), 1, (255, 255, 255))
-        #surface.blit(label, (0, 90))
-        #label = font.render("Lava emerging: %d" % (lava.state == EMERGING), 1, (255, 255, 255))
-        #surface.blit(label, (0, 120))
-        #label = font.render("Score: %d" % player.score, 1, (255, 255, 255))
-        #surface.blit(label, (0, 150))
+        label = font.render("FPS: %f" % (timer.get_fps()), 1, (255, 255, 255))
+        surface.blit(label, (0, 0))
+        row, col, cell = level.getCellAt(player.x, player.y)
+        label = font.render("Player: (%d, %d)" % (row, col), 1, (255, 255, 255))
+        surface.blit(label, (0, 30))
     
     elif conf.state == MENU_STATE:
         if (sound_manager.playing_background_music and sound_manager.music_playing != MENU_MUSIC_PATH):
