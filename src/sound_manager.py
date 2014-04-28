@@ -21,4 +21,5 @@ class SoundManager:
 
     def play_effect(self, effect):
         sound = pygame.mixer.Sound(effect)
+        sound.set_volume(0.1)
         sound.play()
