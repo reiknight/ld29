@@ -129,6 +129,7 @@ while True:
                 sound_manager.play_background_music(LAVA_MUSIC_PATH)
 
         if (sound_manager.playing_background_music and sound_manager.music_playing == LAVA_MUSIC_PATH and lava.state == ENDED):
+            configuration.save_score(player.score)
             sound_manager.stop_background_music()
 
         if (player_score != player.score):
@@ -163,6 +164,8 @@ while True:
             sound_manager.enabled = True
     elif conf.state == CONTINUE_GAME_STATE:
         conf.state = GAME_STATE
+        if (configuration.has_saved_game()):
+            player.score = configuration.load_score()
     elif conf.state == NEW_GAME_STATE:
         level = Level(CELL_SIZE, LEVEL_INITIAL_ROWS, LEVEL_INITIAL_COLS)
         player = Player(level, 0, PLAYER_SPAWN_POSITION_COL * CELL_SIZE, (SURFACE_LEVEL - 1 )* CELL_SIZE)
