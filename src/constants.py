@@ -40,6 +40,7 @@ STONE = 1
 LIGHT_METAL = 2
 HEAVY_METAL = 3
 OBSIDIAN = 4
+TREASURE = 999
 
 CELL_MATERIALS = (DIRT, STONE, LIGHT_METAL, HEAVY_METAL, OBSIDIAN)
 
@@ -52,6 +53,14 @@ CELL_MATERIAL_SPAWN_PROB = {
     HEAVY_METAL: (  0,  0,  0, 20, 30),
     OBSIDIAN:    (  0,  0,  0,  0, 10)
 }
+TREASURE_SPAWN_PROB = (5, 10, 15, 20, 25)
+TREASURE_VALUES = (
+        (  1,   5),
+        ( 10,  20),
+        ( 40,  80),
+        (100, 150),
+        (200, 500)
+)
 
 CELL_TYPE_COLORS = [
     (51 , 102, 255), # SKY

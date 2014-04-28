@@ -57,7 +57,7 @@ class Level:
         cell_type_id = SKY if row < SURFACE_LEVEL else GROUND
         cell = Cell(cell_type_id, row, col, self.cell_size)
         if (cell_type_id == GROUND):
-            cell.setMaterial(self.materialAt(row, col))
+            cell.setMaterial(self.materialAt(row, col), self.getTier(row))
         return cell
 
     def materialAt(self, row, col):
@@ -65,9 +65,13 @@ class Level:
             return OBSIDIAN
 
         tier_level = self.getTier(row)
+        
+        prob = random.randrange(1, 100)
+        if (prob <= TREASURE_SPAWN_PROB[tier_level]):
+            return TREASURE
+
         prob = random.randrange(1, 100)
         acc_prob = 0
-
         for material in CELL_MATERIALS:
             acc_prob += CELL_MATERIAL_SPAWN_PROB[material][tier_level]
             if (prob <= acc_prob):
