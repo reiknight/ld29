@@ -163,8 +163,44 @@ while True:
         camera = Camera()
         conf.state = GAME_STATE
     elif conf.state == MAN_STATE:
-        conf.state = MENU_STATE
+        #Input
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    conf.state = MENU_STATE
+        surface.fill((0, 0, 0))
+        background = pygame.image.load("assets/instructions.png")
+        surface.blit(background, (0, 0))
     elif conf.state == CREDITS_STATE:
-        conf.state = MENU_STATE
+        #Input
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    conf.state = MENU_STATE
+        surface.fill((0, 0, 0))
+        background = pygame.image.load("assets/credits.png")
+        surface.blit(background, (0, 0))
+        label = font.render("Design:", 1, TEXT_RED)
+        surface.blit(label, (400, 30))
+        label = font.render("@Ultrayoshi & @ReikVal", 1, TEXT_WHITE)
+        surface.blit(label, (400, 60))
+        label = font.render("Programming:", 1, TEXT_RED)
+        surface.blit(label, (400, 100))
+        label = font.render("@ReikVal & @Ultrayoshi", 1, TEXT_WHITE)
+        surface.blit(label, (400, 130))
+        label = font.render("Graphics:", 1, TEXT_RED)
+        surface.blit(label, (30, 400))
+        label = font.render("@Ultrayoshi & @ReikVal", 1, TEXT_WHITE)
+        surface.blit(label, (30, 430))
+        label = font.render("Music:", 1, TEXT_RED)
+        surface.blit(label, (30, 470))
+        label = font.render("@ReikVal & @Ultrayoshi", 1, TEXT_WHITE)
+        surface.blit(label, (30, 500))
     
     pygame.display.update()
