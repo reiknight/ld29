@@ -16,7 +16,7 @@ pygame.init()
 timer = pygame.time.Clock()
 
 surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-#pygame.display.set_icon(pygame.image.load('assets/gameicon.png'))
+pygame.display.set_icon(pygame.image.load('assets/gameicon.png'))
 pygame.display.set_caption('Speluncraft without craft')
 
 sound_manager = SoundManager()
