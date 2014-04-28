@@ -22,3 +22,5 @@ Move your character using A and D keys. Use the arrow keys to dig but be careful
 Randomly, a Warning signal appears and lava starts to emerge. Move your character to the surface in order to survive.
 
 If you go deeply you will find more and bigger treasures but the probability of danger increases as well.
+
+Some materials are more durable than others. Use your pickaxe more than one time!
