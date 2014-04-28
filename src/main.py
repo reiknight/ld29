@@ -36,7 +36,7 @@ mousey = 0
 while True:
     dt = timer.tick(FPS)
     if conf.state == GAME_STATE:
-        if (sound_manager.playing_background_music and sound_manager.music_playing != NORMAL_MUSIC_PATH):
+        if (sound_manager.playing_background_music and sound_manager.music_playing == MENU_MUSIC_PATH):
             sound_manager.stop_background_music()
         if (not sound_manager.playing_background_music and lava.state != EMERGING):
             sound_manager.play_background_music(NORMAL_MUSIC_PATH)
