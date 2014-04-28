@@ -6,9 +6,10 @@ from sprite import Sprite
 
 class Player(Entity):
     """Player entity"""
-    def __init__(self, level, x = 750, y = 0):
+    def __init__(self, level, score = 0, x = 750, y = 0):
         self.x = x
         self.y = y
+        self.score = score
         self.w = CELL_SIZE
         self.h = CELL_SIZE
         self.posX = (x + CELL_SIZE//2)//CELL_SIZE
@@ -38,6 +39,9 @@ class Player(Entity):
         
         self.posX = self.x//CELL_SIZE
         self.posY = self.y//CELL_SIZE
+    
+    def set_score(self, score):
+        self.score = score
 
     def getCenter(self):
         return (self.x + self.w / 2, self.y + self.h / 2)

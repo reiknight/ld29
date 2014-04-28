@@ -10,6 +10,19 @@ HALF_WINDOW_HEIGHT = int(WINDOW_HEIGHT / 2)
 
 CELL_SIZE = 50
 
+#States:
+MENU_STATE = -1
+GAME_STATE = 0
+NEW_GAME_STATE = 1
+CONTINUE_GAME_STATE = 2
+CREDITS_STATE = 3
+MAN_STATE = 4
+
+#Text color:
+TEXT_RED = (240, 50, 50)
+TEXT_GREY = (100, 100, 100)
+TEXT_WHITE = (240, 240, 240)
+
 CAMERA_SLACK = 90 # How far from the center the player moves before moving the camera
 
 PLAYER_SPEED = 5
@@ -65,4 +78,8 @@ LAVA_LEVEL_TIER_PROB = 10
 ENDED = 0
 ENDING = 1
 EMERGING = 2
+<<<<<<< HEAD
 CLEANING = 3
+=======
+CLEANING = 3
+>>>>>>> conflits_ioputas
