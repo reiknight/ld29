@@ -68,14 +68,19 @@ while True:
                     player.mov = PLAYER_SPEED
                 elif event.key == K_LEFT:
                     player.pick((0, -1))
+                    sound_manager.play_effect(PICK_SOUND_PATH)
                 elif event.key == K_RIGHT:
                     player.pick((0, 1))
+                    sound_manager.play_effect(PICK_SOUND_PATH)
                 elif event.key == K_UP:
                     player.pick((-1, 0))
+                    sound_manager.play_effect(PICK_SOUND_PATH)
                 elif event.key == K_DOWN:
                     player.pick((1, 0))
+                    sound_manager.play_effect(PICK_SOUND_PATH)
                 elif event.key == K_SPACE:
                     player.jump()
+                    sound_manager.play_effect(JUMP_SOUND_PATH)
                 elif event.key == K_q:
                     player.change_pick_type()
                 elif event.key == K_TAB:

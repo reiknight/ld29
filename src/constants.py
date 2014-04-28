@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 FPS = 60
-GOD_MODE = True
+GOD_MODE = False
 
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
@@ -95,3 +95,6 @@ MENU_MUSIC_PATH = "assets/menu.ogg"
 NORMAL_MUSIC_PATH = "assets/speluncraft.ogg"
 LAVA_MUSIC_PATH = "assets/lavacraft.ogg"
 SHOP_MUSIC_PATH = "assets/shop.ogg"
+
+JUMP_SOUND_PATH = "assets/jump.wav"
+PICK_SOUND_PATH = "assets/pick.wav"
