@@ -20,7 +20,7 @@ class Player(Sprite):
         self.pick_type = 0
         self.pick_amount = 1
         self.jumping = 0
-        self.bounding_box = (0, 0, CELL_SIZE, CELL_SIZE)
+        self.bounding_box = PLAYER_BOUNDING_BOX
         self.set_texture(PLAYER_TEXTURE_PATH)
     
     def update(self):
@@ -36,12 +36,16 @@ class Player(Sprite):
             elif not self.level.cells[self.posY+1][self.posX + (1 if self.mov < 0 else 0)].isSolid() and self.jumping <= 0:
                 self.y += 5
                 self.falling = True
-            #if self.mov < 0:
-            #    if not self.level.cells[self.posY][(self.x + self.mov)//CELL_SIZE].isSolid() and ((self.falling or self.jumping > 0) and not self.level.cells[self.posY+1][(self.x + self.mov)//CELL_SIZE].isSolid() or not (self.falling or self.jumping > 0)):
-            #        self.x += self.mov
-            #elif self.mov > 0:
-            #    if not self.level.cells[self.posY][(self.x + self.mov)//CELL_SIZE+1].isSolid() and ((self.falling or self.jumping > 0) and not self.level.cells[self.posY+1][(self.x + self.mov)//CELL_SIZE+1].isSolid() or not (self.falling or self.jumping > 0)) :
-            #        self.x += self.mov
+
+            self.x += self.mov
+            if self.mov > 0:
+                row, col, cell = self.level.getCellAt(self.x + CELL_SIZE, self.y)
+                if (cell.isSolid() and self.collideWith(cell)):
+                    self.x -= self.mov
+            if self.mov < 0:
+                row, col, cell = self.level.getCellAt(self.x, self.y)
+                if (cell.isSolid() and self.collideWith(cell)):
+                    self.x -= self.mov
             
         self.posX = self.x//CELL_SIZE
         self.posY = self.y//CELL_SIZE

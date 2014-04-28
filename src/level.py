@@ -5,7 +5,6 @@ from cell import Cell
 
 class Level:
     def __init__(self, cell_size, rows, cols):
-        self.cell_size = cell_size
         self.rows = rows
         self.cols = cols
         self.font = pygame.font.SysFont("Verdana", 30)
@@ -44,18 +43,18 @@ class Level:
         for i in range(row, row + (WINDOW_HEIGHT // CELL_SIZE) + 1):
             for j in range(col, col + (WINDOW_WIDTH // CELL_SIZE) + 1):
                 try:
-                    self.cells[i][j].draw(surface, camerax, cameray)
+                    self.cells[i][j].draw(surface, camera)
                 except:
                     pass
 
     def getCellAt(self, x, y):
-        row = int(y / self.cell_size)
-        col = int(x / self.cell_size)
+        row = int(y / CELL_SIZE)
+        col = int(x / CELL_SIZE)
         return (row, col, self.cells[row][col])
 
     def buildCellAt(self, row, col):
         cell_type_id = SKY if row < SURFACE_LEVEL else GROUND
-        cell = Cell(cell_type_id, row, col, self.cell_size)
+        cell = Cell(cell_type_id, row, col)
         if (cell_type_id == GROUND):
             cell.setMaterial(self.materialAt(row, col), self.getTier(row))
         return cell

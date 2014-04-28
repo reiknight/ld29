@@ -29,6 +29,7 @@ CAMERA_SLACK = 90 # How far from the center the player moves before moving the c
 
 PLAYER_SPEED = 5
 PLAYER_TEXTURE_PATH = "assets/player.png"
+PLAYER_BOUNDING_BOX = (15, 15, 20, 35)
 
 SURFACE_LEVEL= 10
 PLAYER_SPAWN_POSITION_COL = 15
