@@ -29,6 +29,7 @@ lava = Lava()
 camera = Camera()
 
 font = pygame.font.SysFont("Verdana", 30)
+font_instructions = pygame.font.SysFont("Verdana", 16)
 
 mousex = 0
 mousey = 0
@@ -181,6 +182,28 @@ while True:
         surface.fill((0, 0, 0))
         background = pygame.image.load("assets/instructions.png")
         surface.blit(background, (0, 0))
+        
+        label = font_instructions.render("Objective: Collect as much money as you can without dying.", 1, TEXT_WHITE)
+        surface.blit(label, (250, 40))
+        label = font_instructions.render("Move your character using A and D keys.", 1, TEXT_WHITE)
+        surface.blit(label, (250, 90))
+        label = font_instructions.render("Use the arrow keys to dig but be careful.", 1, TEXT_WHITE)
+        surface.blit(label, (250, 120))
+        label = font_instructions.render("Finally, jump using the spacebar.", 1, TEXT_WHITE)
+        surface.blit(label, (250, 150))
+        label = font_instructions.render("Randomly, a Warning signal appears and lava starts to emerge.", 1, TEXT_WHITE)
+        surface.blit(label, (250, 200))
+        label = font_instructions.render("Move your character to the surface in order to survive.", 1, TEXT_WHITE)
+        surface.blit(label, (250, 230))
+        label = font_instructions.render("If you go deeply you will find more and bigger treasures", 1, TEXT_WHITE)
+        surface.blit(label, (250, 280))
+        label = font_instructions.render("but the probability of danger increases as well.", 1, TEXT_WHITE)
+        surface.blit(label, (250, 310))
+        label = font_instructions.render("Some materials are more durable than others.", 1, TEXT_WHITE)
+        surface.blit(label, (250, 360))
+        label = font_instructions.render("Use your pickaxe more than one time!", 1, TEXT_WHITE)
+        surface.blit(label, (250, 390))
+        
     elif conf.state == CREDITS_STATE:
         #Input
         for event in pygame.event.get():
