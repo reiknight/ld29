@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 FPS = 60
-MUSIC_ENABLED_BY_DEFAULT = False
+MUSIC_ENABLED_BY_DEFAULT = True
 GOD_MODE = False
 DRAW_BOUNDING_BOXES = False
 
