@@ -78,8 +78,4 @@ LAVA_LEVEL_TIER_PROB = 10
 ENDED = 0
 ENDING = 1
 EMERGING = 2
-<<<<<<< HEAD
 CLEANING = 3
-=======
-CLEANING = 3
->>>>>>> conflits_ioputas
