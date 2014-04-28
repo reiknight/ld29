@@ -142,12 +142,12 @@ while True:
         player.draw(surface, camera)
         lava.draw(surface, camera)
 
-        #Debug
-        label = font.render("FPS: %f" % (timer.get_fps()), 1, (255, 255, 255))
-        surface.blit(label, (0, 0))
-        row, col, cell = level.getCellAt(player.x, player.y)
         label = font.render("Score: %d R" % (player.score), 1, (255, 255, 255))
-        surface.blit(label, (0, 30))
+        surface.blit(label, (0, 0))
+        if (lava.state == EMERGING):
+            label = font.render("LAVA EMERGING: RUN TO THE SURFACE!", 1, (255, 0, 0))
+            surface.blit(label, (0, 30))
+
     
     elif conf.state == MENU_STATE:
         if (sound_manager.playing_background_music and sound_manager.music_playing != MENU_MUSIC_PATH):
