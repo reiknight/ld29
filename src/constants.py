@@ -76,7 +76,7 @@ TREASURE_VALUES = (
 
 CELL_TYPE_COLORS = [
     (51 , 102, 255), # SKY
-    (176, 139 , 99)  # GROUND
+    (146, 99 , 49)  # GROUND
 ]
 
 CELL_MATERIAL_COLORS = [
