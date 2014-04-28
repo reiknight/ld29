@@ -67,14 +67,15 @@ class Level:
         tier_level = self.getTier(row)
         
         prob = random.randrange(1, 100)
-        if (prob <= TREASURE_SPAWN_PROB[tier_level]):
-            return TREASURE
-
-        prob = random.randrange(1, 100)
         acc_prob = 0
         for material in CELL_MATERIALS:
             acc_prob += CELL_MATERIAL_SPAWN_PROB[material][tier_level]
             if (prob <= acc_prob):
+                if (material == DIRT):
+                    prob = random.randrange(1, 100)
+                    if (prob <= TREASURE_SPAWN_PROB[tier_level]):
+                        return TREASURE
+
                 return material
 
     def getTier(self, row):

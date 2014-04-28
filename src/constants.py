@@ -54,7 +54,7 @@ CELL_MATERIAL_SPAWN_PROB = {
     HEAVY_METAL: (  0,  0,  0, 20, 30),
     OBSIDIAN:    (  0,  0,  0,  0, 10)
 }
-TREASURE_SPAWN_PROB = (5, 10, 15, 20, 25)
+TREASURE_SPAWN_PROB = (1, 2, 4, 8, 12)
 TREASURE_VALUES = (
         (  1,   5),
         ( 10,  20),

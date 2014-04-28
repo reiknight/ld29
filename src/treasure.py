@@ -9,6 +9,7 @@ class Treasure:
 
         minAmount, maxAmount = TREASURE_VALUES[tier_level]
         self.money = random.randrange(minAmount, maxAmount)
+        self.opened = False
 
     def update(self):
         pass
