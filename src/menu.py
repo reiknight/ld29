@@ -38,6 +38,8 @@ def draw_menu(surface, font, conf):
 
     #Drawing
     surface.fill((0, 0, 0))
+    background = pygame.image.load("assets/menu.png")
+    surface.blit(background, (0, 0))
     label = font.render("New game", 1, TEXT_RED if pos == 0 else TEXT_WHITE)
     surface.blit(label, (30, WINDOW_HEIGHT - 240))
     label = font.render("Continue", 1, TEXT_GREY if not game_saved else (TEXT_RED if pos == 1 else TEXT_WHITE))
