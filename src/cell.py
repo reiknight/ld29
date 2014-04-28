@@ -34,7 +34,7 @@ class Cell(Sprite):
         if (self.material != None):
             Sprite.draw(self, surface, camera)
         if (self.treasure != None):
-            self.treasure.draw(surface, camerax, cameray)
+            self.treasure.draw(surface, camera)
 
     def isSolid(self):
         return self.cell_type_id == GROUND and self.material != None
