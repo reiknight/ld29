@@ -173,6 +173,11 @@ while True:
         camera = Camera()
         conf.state = GAME_STATE
     elif conf.state == MAN_STATE:
+        if (sound_manager.playing_background_music and sound_manager.music_playing != SHOP_MUSIC_PATH):
+            sound_manager.stop_background_music()
+        elif (not sound_manager.playing_background_music):
+            sound_manager.play_background_music(SHOP_MUSIC_PATH)
+
         #Input
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -207,6 +212,11 @@ while True:
         surface.blit(label, (250, 390))
         
     elif conf.state == CREDITS_STATE:
+        if (sound_manager.playing_background_music and sound_manager.music_playing != SHOP_MUSIC_PATH):
+            sound_manager.stop_background_music()
+        elif (not sound_manager.playing_background_music):
+            sound_manager.play_background_music(SHOP_MUSIC_PATH)
+
         #Input
         for event in pygame.event.get():
             if event.type == QUIT:
