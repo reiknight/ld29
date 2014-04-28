@@ -76,8 +76,8 @@ CELL_MATERIAL_COLORS = [
     (112, 0  , 112)  # OBSIDIAN
 ]
 
-LAVA_BASE_PROB = 15
-LAVA_TIME_CHECK = 15000 # 15 seconds
+LAVA_BASE_PROB = 100 #15
+LAVA_TIME_CHECK = 5000#15000 # 15 seconds
 LAVA_CHECK_PROB = 5
 LAVA_BASE_SPEED = 50
 LAVA_SPEED_INCR = 10
@@ -89,3 +89,8 @@ ENDED = 0
 ENDING = 1
 EMERGING = 2
 CLEANING = 3
+
+# Music
+NORMAL_MUSIC_PATH = "assets/speluncraft.ogg"
+LAVA_MUSIC_PATH = "assets/lavacraft.ogg"
+SHOP_MUSIC_PATH = "assets/shop.ogg"

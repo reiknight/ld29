@@ -10,6 +10,7 @@ from player import Player
 from level import Level
 from lava import Lava
 from configuration import Configuration
+from sound_manager import SoundManager
 
 pygame.init()
 timer = pygame.time.Clock()
@@ -20,6 +21,7 @@ surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption('Speluncraft without craft')
 
 conf = Configuration()
+sound_manager = SoundManager()
 
 level = Level(CELL_SIZE, LEVEL_INITIAL_ROWS, LEVEL_INITIAL_COLS)
 player = Player(level, 0, PLAYER_SPAWN_POSITION_COL * CELL_SIZE, (SURFACE_LEVEL - 1 )* CELL_SIZE)
@@ -34,6 +36,9 @@ mousey = 0
 while True:
     dt = timer.tick(FPS)
     if conf.state == GAME_STATE:
+        if (not sound_manager.playing_background_music and lava.state != EMERGING):
+            sound_manager.play_background_music(NORMAL_MUSIC_PATH)
+
         #Input
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -103,6 +108,15 @@ while True:
         camera.update(player)
         lava.update(dt, player, level)
 
+        if (lava.state == EMERGING):
+            if (sound_manager.playing_background_music and sound_manager.music_playing == NORMAL_MUSIC_PATH):
+                sound_manager.stop_background_music()
+            elif(not sound_manager.playing_background_music):
+                sound_manager.play_background_music(LAVA_MUSIC_PATH)
+
+        if (lava.state == CLEANING):
+            sound_manager.stop_background_music()
+
         #Drawing
         surface.fill((0, 0, 255))
         level.draw(surface, camera)
@@ -110,20 +124,22 @@ while True:
         lava.draw(surface, camera)
 
         #Debug
-        label = font.render("FPS: %f" % (timer.get_fps()), 1, (255, 255, 255))
-        surface.blit(label, (0, 0))
-        label = font.render("Lava timer: %02.f" % (lava.timer), 1, (255, 255, 255))
-        surface.blit(label, (0, 30))
-        label = font.render("Lava checks: %d" % (lava.checks), 1, (255, 255, 255))
-        surface.blit(label, (0, 60))
-        label = font.render("Lava emerge prob: %d" % (lava.emerge_prob(player, level)), 1, (255, 255, 255))
-        surface.blit(label, (0, 90))
-        label = font.render("Lava emerging: %d" % (lava.state == EMERGING), 1, (255, 255, 255))
-        surface.blit(label, (0, 120))
-        label = font.render("Score: %d" % player.score, 1, (255, 255, 255))
-        surface.blit(label, (0, 150))
+        #label = font.render("FPS: %f" % (timer.get_fps()), 1, (255, 255, 255))
+        #surface.blit(label, (0, 0))
+        #label = font.render("Lava timer: %02.f" % (lava.timer), 1, (255, 255, 255))
+        #surface.blit(label, (0, 30))
+        #label = font.render("Lava checks: %d" % (lava.checks), 1, (255, 255, 255))
+        #surface.blit(label, (0, 60))
+        #label = font.render("Lava emerge prob: %d" % (lava.emerge_prob(player, level)), 1, (255, 255, 255))
+        #surface.blit(label, (0, 90))
+        #label = font.render("Lava emerging: %d" % (lava.state == EMERGING), 1, (255, 255, 255))
+        #surface.blit(label, (0, 120))
+        #label = font.render("Score: %d" % player.score, 1, (255, 255, 255))
+        #surface.blit(label, (0, 150))
     
     elif conf.state == MENU_STATE:
+        if (sound_manager.playing_background_music):
+            sound_manager.stop_background_music()
         menu.draw_menu(surface, font, conf)
     elif conf.state == CONTINUE_GAME_STATE:
         conf.state = GAME_STATE
