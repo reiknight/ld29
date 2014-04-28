@@ -114,7 +114,7 @@ while True:
             elif(not sound_manager.playing_background_music):
                 sound_manager.play_background_music(LAVA_MUSIC_PATH)
 
-        if (lava.state == CLEANING):
+        if (sound_manager.playing_background_music and sound_manager.music_playing == LAVA_MUSIC_PATH and lava.state == ENDED):
             sound_manager.stop_background_music()
 
         #Drawing
